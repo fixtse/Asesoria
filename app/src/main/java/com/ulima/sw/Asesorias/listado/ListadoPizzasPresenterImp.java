@@ -33,7 +33,7 @@ public class ListadoPizzasPresenterImp implements ListadoPizzasPresenter {
                 .build();
 
         PizzaPService service = retrofit.create(PizzaPService.class);
-        service.obtenerPizzas(idpizzas).enqueue(new Callback<List<Pizza>>() {
+        service.obtenerPizzas(1).enqueue(new Callback<List<Pizza>>() {
             @Override
             public void onResponse(Call<List<Pizza>> call, Response<List<Pizza>> response) {
                 lview.mostrarPizzas(response.body());

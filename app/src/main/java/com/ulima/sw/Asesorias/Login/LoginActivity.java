@@ -12,6 +12,7 @@ import com.ulima.sw.Asesorias.Pedido.GridActivityT;
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.beans.Sesion;
 import com.ulima.sw.Asesorias.beans.Usuario;
+import com.ulima.sw.Asesorias.listado.ListadoPizzasActivity;
 
 
 public class LoginActivity extends AppCompatActivity implements LoginView{
@@ -62,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     public void callActiviy(String resp) {
 
         if (resp.equalsIgnoreCase("1")){
-            Intent intent = new Intent(this, GridActivityT.class);
+            Intent intent = new Intent(this, ListadoPizzasActivity.class);
             intent.putExtra("usuario",usuario);
             eteUsuario.setText(null);
             etePassword.setText(null);
