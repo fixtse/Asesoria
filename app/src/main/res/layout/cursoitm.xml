@@ -6,12 +6,12 @@
     android:background="#FFFFFF">
 
     <ImageView
-        android:id="@+id/imgpizza"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:id="@+id/img_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/americana"
+        android:src="@android:drawable/ic_notification_overlay"
         android:scaleType="fitXY"
         />
     <LinearLayout
@@ -19,29 +19,32 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:orientation="vertical"
-        android:layout_toRightOf="@id/imgpizza"
-        android:layout_marginLeft="10dp">
+        android:layout_toRightOf="@id/img_icon"
+        android:layout_marginLeft="10dp"
+        >
         <TextView
-            android:id="@+id/txtOrden"
+            android:id="@+id/txtCurso"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="N#: "
-            android:textSize="20dp"
+            android:text="Curso: "
             />
         <TextView
-            android:id="@+id/txtNombre"
+            android:id="@+id/txtSeccion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre: "
-            android:textSize="20dp"
-            />
-        <TextView
-            android:id="@+id/txtTam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tamaño: "
-            android:textSize="20dp"
+            android:text="Sección: "
             />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_icon2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/toright"
+        android:scaleType="fitXY"
+        />
 
 </RelativeLayout>

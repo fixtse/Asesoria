@@ -48,7 +48,7 @@ public class IngredientesActivity extends AppCompatActivity implements Ingredien
         ingred = (List<Ingrediente>)intentPasado.getSerializableExtra("ingredientes");
 
 
-        lstIngredientes = (ObservableListView)findViewById(R.id.lstIngredientes);
+       // lstIngredientes = (ObservableListView)findViewById(R.id.lstIngredientes);
         lstIngredientes.setScrollViewCallbacks(this);
 
         setPresenter(new IngredientesPresenterImp(this));

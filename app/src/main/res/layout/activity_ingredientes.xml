@@ -3,13 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ulima.sw.Asesorias.listado.ListadoPizzasActivity"
+    tools:context=".listado.ListadoCursosActivity"
     android:background="#FFFFFF">
 
-    <com.github.ksoichiro.android.observablescrollview.ObservableListView
-        android:id="@+id/lstIngredientes"
+
+    <!--<com.github.ksoichiro.android.observablescrollview.ObservableListView
+        android:id="@+id/lstIngredientes2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/ingredienteitm"/>
+        tools:listitem="@layout/ingredienteitm"/>-->
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/cursoitm">
+    </Spinner>
+
 
 </RelativeLayout>

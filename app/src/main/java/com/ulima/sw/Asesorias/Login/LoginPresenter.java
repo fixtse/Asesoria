@@ -1,7 +1,7 @@
 package com.ulima.sw.Asesorias.Login;
 
 
-import com.ulima.sw.Asesorias.beans.Usuario;
+import com.ulima.sw.Asesorias.asebeans.Usuario;
 
 /**
  * Created by fixt on 11/05/16.

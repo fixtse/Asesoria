@@ -8,11 +8,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ulima.sw.Asesorias.Pedido.GridActivityT;
 import com.ulima.sw.Asesorias.R;
-import com.ulima.sw.Asesorias.beans.Sesion;
-import com.ulima.sw.Asesorias.beans.Usuario;
-import com.ulima.sw.Asesorias.listado.ListadoPizzasActivity;
+import com.ulima.sw.Asesorias.asebeans.Usuario;
+import com.ulima.sw.Asesorias.asebeans.Sesion;
+import com.ulima.sw.Asesorias.listado.ListadoCursosActivity;
 
 
 public class LoginActivity extends AppCompatActivity implements LoginView{
@@ -31,6 +30,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
 
         setContentView(R.layout.activity_login);
         eteUsuario = (EditText) findViewById(R.id.txtUsuario);
+        etePassword = (EditText) findViewById(R.id.txtContra);
         ses = new Sesion(getApplicationContext());
 
 
@@ -44,10 +44,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         usuario = eteUsuario.getText().toString().trim();
+        String password ="";
 
         ses.createLoginSession(usuario);
 
-        String password = etePassword.getText().toString();
+        password = etePassword.getText().toString();
         Usuario user= new Usuario(usuario, password);
         setPresenter(new LoginPresenterImp(this));
         lPresenter.obtenerLogin(user);
@@ -63,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     public void callActiviy(String resp) {
 
         if (resp.equalsIgnoreCase("1")){
-            Intent intent = new Intent(this, ListadoPizzasActivity.class);
+            Intent intent = new Intent(this, ListadoCursosActivity.class);
             intent.putExtra("usuario",usuario);
             eteUsuario.setText(null);
             etePassword.setText(null);

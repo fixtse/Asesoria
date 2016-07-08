@@ -12,14 +12,17 @@
     android:background="#FFFFFF">
 
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ulima"
         android:layout_above="@+id/txtUsuario"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:layout_alignParentTop="true"/>
 
     <EditText
-        android:layout_centerInParent="true"
+        android:layout_above="@+id/txtContra"
         android:id="@+id/txtUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +33,7 @@
         android:singleLine="true"
         android:hint="Usuario"/>
     <EditText
-        android:layout_below="@id/txtUsuario"
+        android:layout_above="@+id/btnIng"
         android:id="@+id/txtContra"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,11 +45,11 @@
         android:gravity="center"
         />
     <Button
-        android:layout_below="@id/txtContra"
         android:id="@+id/btnIng"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onLoginClicked"
+        android:layout_alignParentBottom="true"
         android:text="Ingresar"/>
 
 

@@ -18,7 +18,7 @@ import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.adapter.ListadoPedidosAdapter;
 import com.ulima.sw.Asesorias.beans.Mensaje;
-import com.ulima.sw.Asesorias.listado.ListadoPizzasActivity;
+import com.ulima.sw.Asesorias.listado.ListadoCursosActivity;
 
 import java.util.List;
 
@@ -80,7 +80,7 @@ public class GridActivityT extends AppCompatActivity implements GridViewT,Observ
         GridPedidos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(GridActivityT.this, ListadoPizzasActivity.class);
+                Intent intent = new Intent(GridActivityT.this, ListadoCursosActivity.class);
                 intent.putExtra("idpizza",pedidos.get(position).getId());
                 intent.putExtra("usuario",usuario);
                 intent.putExtra("idestado",pedidos.get(position).getEstado());
