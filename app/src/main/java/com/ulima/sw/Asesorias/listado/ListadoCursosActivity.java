@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
@@ -40,6 +41,7 @@ public class ListadoCursosActivity extends AppCompatActivity implements ListadoC
     private DrawerLayout drawerLayout;
     private View headerView;
     private TextView txtUsuario;
+    private ImageView imgUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class ListadoCursosActivity extends AppCompatActivity implements ListadoC
 
         headerView = navigationView.inflateHeaderView(R.layout.nav_header);
         txtUsuario =  (TextView)headerView.findViewById(R.id.navNom);
+        imgUsuario = (ImageView)headerView.findViewById(R.id.navImg) ;
 
         ses = new Sesion(getApplicationContext());
         ses.checkLogin();
@@ -66,6 +69,7 @@ public class ListadoCursosActivity extends AppCompatActivity implements ListadoC
         String name = user.get(ses.KEY_NAME);
 
         txtUsuario.setText("Usuario: " + name);
+        imgUsuario.setImageResource(R.drawable.profe);
 
         supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
