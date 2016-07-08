@@ -1,0 +1,17 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.fragCursos">
+
+    <ListView
+        android:id="@+id/lstCursos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/cursoitm"
+        android:layout_marginTop="30dp"
+
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+
+</FrameLayout>

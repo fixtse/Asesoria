@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/men_fragment_uno"
-            android:title="Fragment Uno"/>
+            android:id="@+id/mCursos"
+            android:title="Cursos"/>
         <item
-            android:id="@+id/men_fragment_dos"
-            android:title="Fragment Dos"/>
+            android:id="@+id/mBusqueda"
+            android:title="Busqueda"/>
         <item
-            android:id="@+id/men_fragment_tres"
-            android:title="Fragment Tres"/>
+            android:id="@+id/mMensajes"
+            android:title="Mensajes"/>
     </group>
 </menu>

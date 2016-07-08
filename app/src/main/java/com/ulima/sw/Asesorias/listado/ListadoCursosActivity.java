@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
@@ -30,7 +31,7 @@ import com.ulima.sw.Asesorias.asebeans.Sesion;
 import java.util.HashMap;
 import java.util.List;
 
-public class ListadoCursosActivity extends AppCompatActivity implements ListadoCursosView, ObservableScrollViewCallbacks {
+public class ListadoCursosActivity extends AppCompatActivity implements ListadoCursosView, ObservableScrollViewCallbacks  {
 
     private ListadoCursosPresenter lPresenter;
     private ObservableListView lstCursos;
@@ -42,6 +43,7 @@ public class ListadoCursosActivity extends AppCompatActivity implements ListadoC
     private View headerView;
     private TextView txtUsuario;
     private ImageView imgUsuario;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
