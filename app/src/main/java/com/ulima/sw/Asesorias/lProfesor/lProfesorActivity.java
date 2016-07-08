@@ -1,37 +1,35 @@
-package com.ulima.sw.Asesorias.listado;
+package com.ulima.sw.Asesorias.lProfesor;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.ulima.sw.Asesorias.R;
-import com.ulima.sw.Asesorias.adapter.ListadoCursosAdapter;
+import com.ulima.sw.Asesorias.adapter.ListadoProfesorAdapter;
 import com.ulima.sw.Asesorias.asebeans.Curso;
 import com.ulima.sw.Asesorias.asebeans.Sesion;
+
+
 
 import java.util.HashMap;
 import java.util.List;
 
-public class ListadoCursosActivity extends AppCompatActivity implements ListadoCursosView, ObservableScrollViewCallbacks {
+public class lProfesorActivity extends AppCompatActivity implements lProfesorView, ObservableScrollViewCallbacks {
 
-    private ListadoCursosPresenter lPresenter;
+    private lProfesorPresenter lPresenter;
     private ObservableListView lstCursos;
     private ProgressDialog dialog;
     private int pos;
@@ -45,7 +43,7 @@ public class ListadoCursosActivity extends AppCompatActivity implements ListadoC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Listado Cursos");
-        setContentView(R.layout.activity_listado_cursos);
+        setContentView(R.layout.activity_lprofesor);
 
         NavigationView navigationView
                 = (NavigationView) findViewById(R.id.nav_view);
@@ -65,7 +63,7 @@ public class ListadoCursosActivity extends AppCompatActivity implements ListadoC
         // name
         String name = user.get(ses.KEY_NAME);
 
-        txtUsuario.setText("Usuario: " + name);
+        txtUsuario.setText("Profesor: " + name);
 
         supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
@@ -112,14 +110,14 @@ public class ListadoCursosActivity extends AppCompatActivity implements ListadoC
                 });
 
 
-        setPresenter(new ListadoCursosPresenterImp(this));
+        setPresenter(new lProfesorPresenterImp(this));
         lPresenter.obtenerCursos();
 
 
     }
 
     @Override
-    public void setPresenter(ListadoCursosPresenter presenter) {
+    public void setPresenter(lProfesorPresenter presenter) {
         this.lPresenter = presenter;
     }
 
@@ -131,7 +129,7 @@ public class ListadoCursosActivity extends AppCompatActivity implements ListadoC
 
     @Override
     public void mostrarCursos(final List<Curso> cursos) {
-        ListadoCursosAdapter adapter = new ListadoCursosAdapter(cursos,this);
+        ListadoProfesorAdapter adapter = new ListadoProfesorAdapter(cursos,this);
         lstCursos.setAdapter(adapter);
 
         dialog.dismiss();
@@ -163,7 +161,7 @@ public class ListadoCursosActivity extends AppCompatActivity implements ListadoC
 
                 break;
             case R.id.men_op1:
-               // lPresenter.actualizarEstado(pos,usuario);
+                // lPresenter.actualizarEstado(pos,usuario);
                 break;
         }
         return super.onOptionsItemSelected(item);

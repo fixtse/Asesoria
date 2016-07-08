@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="?attr/colorPrimaryDark"
+    android:layout_height="160dp"
+    android:background="#4e5155"
     android:orientation="vertical"
     android:padding="8dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="Nombre: "
+        android:layout_weight="2"
+        android:id="@+id/navNom"
+        android:layout_gravity="center"
+        android:textColor="#FFFFFF"/>
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ulima"/>
+        android:layout_height="0dp"
+        android:src="@drawable/diego"
+        android:id="@+id/navImg"
+        android:layout_weight="6"/>
+
 </LinearLayout>

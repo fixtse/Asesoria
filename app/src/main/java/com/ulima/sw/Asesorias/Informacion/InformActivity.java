@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ulima.sw.Asesorias.R;
-import com.ulima.sw.Asesorias.beans.Pedido;
+
 
 
 public class InformActivity extends AppCompatActivity implements InformView {
@@ -47,9 +47,9 @@ public class InformActivity extends AppCompatActivity implements InformView {
     }
 
     @Override
-    public void mostrarPedido(Pedido equipo) {
+    /*public void mostrarPedido(Pedido equipo) {
 
-       /* imgE = (ImageView)findViewById(R.id.imgE);
+        imgE = (ImageView)findViewById(R.id.imgE);
         txtEquipo = (TextView)findViewById(R.id.txtOrden);
         txtPG = (TextView)findViewById(R.id.txtPP);
         txtPP = (TextView)findViewById(R.id.txtPG);
@@ -62,9 +62,9 @@ public class InformActivity extends AppCompatActivity implements InformView {
                 .fit()
                 .centerCrop()
                 .into(imgE);
-        dialog.dismiss();*/
+        dialog.dismiss();
 
-    }
+    }*/
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

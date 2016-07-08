@@ -12,6 +12,7 @@ import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.asebeans.Usuario;
 import com.ulima.sw.Asesorias.asebeans.Sesion;
 import com.ulima.sw.Asesorias.listado.ListadoCursosActivity;
+import com.ulima.sw.Asesorias.lProfesor.lProfesorActivity;
 
 
 public class LoginActivity extends AppCompatActivity implements LoginView{
@@ -24,8 +25,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //setTheme(R.style.PichangersTheme);
-        //setTheme(android.R.style.Theme_Holo);
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
@@ -65,14 +65,16 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
 
         if (resp.equalsIgnoreCase("1")){
             Intent intent = new Intent(this, ListadoCursosActivity.class);
-            intent.putExtra("usuario",usuario);
             eteUsuario.setText(null);
             etePassword.setText(null);
-
+            startActivity(intent);
+        }else if(resp.equalsIgnoreCase("2")){
+            Intent intent = new Intent(this, lProfesorActivity.class);
+            eteUsuario.setText(null);
+            etePassword.setText(null);
             startActivity(intent);
         }else{
             Toast.makeText(this, "Credenciales Erradas", Toast.LENGTH_SHORT).show();
-
         }
         dialog.dismiss();
     }

@@ -18,7 +18,7 @@ public class ListadoCursosPresenterImp implements ListadoCursosPresenter {
 
 
     @Override
-    public void obtenerCursos(String usuario) {
+    public void obtenerCursos() {
 
         /*Retrofit retrofit = new Retrofit.Builder()
                 //.baseUrl("http://pizzaplanetac.mybluemix.net/webresources/generic/")

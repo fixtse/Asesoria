@@ -19,11 +19,14 @@
         </activity>
         <activity
             android:name=".listado.ListadoCursosActivity"
-            android:parentActivityName="com.ulima.sw.Asesorias.Pedido.GridActivityT" />
+             >
+
+
+            </activity>
         <activity
             android:name="com.ulima.sw.Asesorias.Pedido.GridActivityT"
             android:parentActivityName="com.ulima.sw.Asesorias.Login.LoginActivity" />
-        <activity android:name="com.ulima.sw.Asesorias.ingredientes.IngredientesActivity"></activity>
+        <activity android:name=".lProfesor.lProfesorActivity"></activity>
     </application>
 
 </manifest>

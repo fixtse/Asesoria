@@ -8,64 +8,63 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ulima.sw.Asesorias.R;
-import com.ulima.sw.Asesorias.beans.Ingrediente;
+import com.ulima.sw.Asesorias.asebeans.Curso;
 
 import java.util.List;
 
 /**
  * Created by fixt on 15/06/16.
  */
-public class ListadoIngredientesAdapter extends BaseAdapter {
-    private List<Ingrediente> lProductos;
+public class ListadoProfesorAdapter extends BaseAdapter {
+    private List<Curso> lCursos;
     private LayoutInflater mInflater;
     private Context mContext;
 
-    public ListadoIngredientesAdapter(List<Ingrediente> producto,
+    public ListadoProfesorAdapter(List<Curso> cursos,
                                 Context context){
         mContext = context;
-        lProductos = producto;
+        lCursos = cursos;
         mInflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return lProductos.size();
+        return lCursos.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return lProductos.get(position);
+        return lCursos.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return lProductos.get(position).getId();
+        return lCursos.get(position).getId();
     }
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        int acu;
         ViewHolder viewHolder;
         if (view == null){
-            view = mInflater.inflate(R.layout.ingredienteitm, null);
+            view = mInflater.inflate(R.layout.cursoitm, null);
             viewHolder = new ViewHolder();
-            viewHolder.tviNum =  (TextView)view.findViewById(R.id.edtID);
-            viewHolder.tviNombre = (TextView)view.findViewById(R.id.edtNombre);
+            viewHolder.tviCurso =  (TextView)view.findViewById(R.id.txtCurso);
+            viewHolder.tviSeccion = (TextView)view.findViewById(R.id.txtSeccion);
         }else{
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        Ingrediente ingrediente = lProductos.get(position);
-        acu = position +1;
-        viewHolder.tviNum.setText("N#"+acu);
-        viewHolder.tviNombre.setText("Nom: "  + ingrediente.getNombre());
+        Curso curso = lCursos.get(position);
+        viewHolder.tviCurso.setText( curso.getNombre());
+        viewHolder.tviSeccion.setText("Sección: " + curso.getSeccion());
+
 
         return view;
     }
 
     class ViewHolder{
-        TextView tviNombre;
-        TextView tviNum;
+        TextView tviCurso;
+        TextView tviSeccion;
     }
 }
 

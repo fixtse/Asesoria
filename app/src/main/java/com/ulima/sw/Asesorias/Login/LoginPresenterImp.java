@@ -34,9 +34,12 @@ public class LoginPresenterImp implements LoginPresenter {
             }
         });*/
 
-        if ((user.getUsuario().trim().toLowerCase().equals("123")) &&
+        if ((user.getUsuario().trim().toLowerCase().equals("alm")) &&
                 user.getPassword().equals("123") ){
             lView.callActiviy("1");
+        }else if((user.getUsuario().trim().toLowerCase().equals("prof")) &&
+                user.getPassword().equals("123") ){
+            lView.callActiviy("2");
         }else{
            lView.callActiviy("0");
         }
