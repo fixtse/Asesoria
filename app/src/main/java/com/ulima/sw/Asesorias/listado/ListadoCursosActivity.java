@@ -71,7 +71,7 @@ public class ListadoCursosActivity extends AppCompatActivity implements ListadoC
         String name = user.get(ses.KEY_NAME);
 
         txtUsuario.setText("Usuario: " + name);
-        imgUsuario.setImageResource(R.drawable.profe);
+        imgUsuario.setImageResource(R.drawable.diego);
 
         supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {

@@ -7,6 +7,9 @@
         <item
             android:id="@+id/mmensajes"
             android:title="Mensajes"/>
+        <item
+            android:id="@+id/CSesion"
+            android:title="Cerrar Sesión"/>
 
     </group>
 </menu>

@@ -75,7 +75,9 @@ public class lProfesorActivity extends AppCompatActivity {
 
 
 
-
+        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        tx.replace(R.id.flaContenido, new fragCursos());
+        tx.commit();
 
 
 
@@ -93,6 +95,9 @@ public class lProfesorActivity extends AppCompatActivity {
                            transaction.replace(R.id.flaContenido, new fragCursos());
                         }else if(item.getItemId() == R.id.mmensajes){
                             transaction.replace(R.id.flaContenido, new fragMensajes());
+
+                        }else if(item.getItemId() == R.id.CSesion){
+                            ses.logoutUser();
 
                         }
 

@@ -2,6 +2,7 @@ package com.ulima.sw.Asesorias.fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
@@ -31,9 +32,6 @@ public class fragCursos extends ListFragment implements lProfesorView {
     private lProfesorPresenter lPresenter;
     private ListView lstCursos;
     private ProgressDialog dialog;
-    private int pos;
-    private ActionBar supportActionBar;
-    private View view;
 
 
 
@@ -44,9 +42,8 @@ public class fragCursos extends ListFragment implements lProfesorView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("Mensajes");
+        getActivity().setTitle("Cursos");
         //setHasOptionsMenu(true); // Seteo que el fragment va a tener su propio menu de opciones
-
 
 
     }
@@ -55,35 +52,10 @@ public class fragCursos extends ListFragment implements lProfesorView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.frag_mensajes, container, false);
-        lstCursos = (ListView)view.findViewById(R.id.lstCursos);
-
-        dialog = new ProgressDialog(getContext());
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("Cargando... Por favor espere");
-        dialog.setIndeterminate(true);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
+        ;
 
 
-
-        //lstCursos.setScrollViewCallbacks(view);
-
-
-        /*setPresenter(new lProfesorPresenterImp(this));
-        lPresenter.obtenerCursos();*/
-        List<Curso> cursos = new ArrayList<>();
-        Curso c1 = new Curso(1,"ING. SOFT. II", 801);
-        Curso c2 = new Curso(2,"PROG. INTERNET", 602);
-        Curso c3 = new Curso(3,"PROG.DISP.MÓVILES", 801);
-
-
-        cursos.add(c1);
-        cursos.add(c2);
-        cursos.add(c3);
-        mostrarCursos(cursos);
-
-        return view;
+        return inflater.inflate(R.layout.frag_cursos, container, false);
     }
 
     @Override
@@ -94,6 +66,24 @@ public class fragCursos extends ListFragment implements lProfesorView {
 
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        lstCursos = (ListView)getView().findViewById(android.R.id.list);
+
+        dialog = new ProgressDialog(getContext());
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage("Cargando... Por favor espere");
+        dialog.setIndeterminate(true);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+
+
+
+        setPresenter(new lProfesorPresenterImp(this));
+        lPresenter.obtenerCursos();
+    }
 
     @Override
     public void setPresenter(lProfesorPresenter presenter) {
@@ -108,8 +98,8 @@ public class fragCursos extends ListFragment implements lProfesorView {
 
     @Override
     public void mostrarCursos(final List<Curso> cursos) {
-        ListFragment.setListAdapter;
-        ListadoProfesorAdapter adapter = new ListadoProfesorAdapter(cursos,view.getContext());
+        //ListFragment.setListAdapter;
+        ListadoProfesorAdapter adapter = new ListadoProfesorAdapter(cursos,getContext());
         lstCursos.setAdapter(adapter);
 
         dialog.dismiss();

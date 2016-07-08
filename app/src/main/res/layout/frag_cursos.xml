@@ -5,7 +5,7 @@
     tools:context=".fragments.fragCursos">
 
     <ListView
-        android:id="@+id/lstCursos"
+        android:id="@id/android:list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/cursoitm"
