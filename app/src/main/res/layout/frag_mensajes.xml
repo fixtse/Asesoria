@@ -2,15 +2,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.fragMensajes">
+    tools:context=".fragments.fragMensajes"
+    android:background="#376ba6" >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/shadow">
+
+    <ListView
+        android:id="@+id/lstId"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Mensajes"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="30dp"/>
+        tools:listitem="@layout/mensaje_itm"
+        android:layout_marginTop="2dp"
+
+        ></ListView></RelativeLayout>
 
 </FrameLayout>
