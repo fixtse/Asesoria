@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.asebeans.Sesion;
+import com.ulima.sw.Asesorias.fragments.fragBusqueda;
 import com.ulima.sw.Asesorias.fragments.fragCursos;
 import com.ulima.sw.Asesorias.fragments.fragMensajes;
 
@@ -104,7 +105,7 @@ public class mainActivity extends AppCompatActivity {
                             ses.logoutUser();
 
                         }else if(item.getItemId() == R.id.mbusqueda){
-                            transaction.replace(R.id.flaContenido, new fragCursos());
+                            transaction.replace(R.id.flaContenido, new fragBusqueda());
 
                         }
 
