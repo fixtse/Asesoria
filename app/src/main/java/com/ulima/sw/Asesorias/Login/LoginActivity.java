@@ -11,8 +11,7 @@ import android.widget.Toast;
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.asebeans.Usuario;
 import com.ulima.sw.Asesorias.asebeans.Sesion;
-import com.ulima.sw.Asesorias.listado.ListadoCursosActivity;
-import com.ulima.sw.Asesorias.lProfesor.lProfesorActivity;
+import com.ulima.sw.Asesorias.cursos.mainActivity;
 
 
 public class LoginActivity extends AppCompatActivity implements LoginView{
@@ -27,7 +26,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
         eteUsuario = (EditText) findViewById(R.id.txtUsuario);
         etePassword = (EditText) findViewById(R.id.txtContra);
@@ -46,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         usuario = eteUsuario.getText().toString().trim();
         String password ="";
 
-        ses.createLoginSession(usuario);
+
 
         password = etePassword.getText().toString();
         Usuario user= new Usuario(usuario, password);
@@ -63,18 +61,15 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     @Override
     public void callActiviy(String resp) {
 
-        if (resp.equalsIgnoreCase("1")){
-            Intent intent = new Intent(this, ListadoCursosActivity.class);
-            eteUsuario.setText(null);
-            etePassword.setText(null);
-            startActivity(intent);
-        }else if(resp.equalsIgnoreCase("2")){
-            Intent intent = new Intent(this, lProfesorActivity.class);
-            eteUsuario.setText(null);
-            etePassword.setText(null);
-            startActivity(intent);
-        }else{
+        if (resp.equalsIgnoreCase("0")){
             Toast.makeText(this, "Credenciales Erradas", Toast.LENGTH_SHORT).show();
+        }else{
+            Intent intent = new Intent(this, mainActivity.class);
+            ses.createLoginSession(usuario,resp);
+            eteUsuario.setText(null);
+            etePassword.setText(null);
+            startActivity(intent);
+
         }
         dialog.dismiss();
     }
