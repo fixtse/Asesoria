@@ -1,21 +1,63 @@
 package com.ulima.sw.Asesorias.asebeans;
 
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Diego Torres on 7/07/2016.
  */
-public class Asesoria {
+public class Asesoria implements Serializable {
     private String dia;
     private String hora;
     private String lugar;
+    private Estado estado;
+    private List<String> alumnos;
+    private float calific = 0;
+
+    public List<String> getAlumnos() {
+        return alumnos;
+    }
+
+    public void setAlumnos(List<String> alumnos) {
+        this.alumnos = alumnos;
+    }
+
+    public float getCalific() {
+        return calific;
+    }
+
+    public void setCalific(float calific) {
+        this.calific = calific;
+    }
 
     public Asesoria() {
     }
 
-    public Asesoria(String dia, String hora, String lugar) {
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public Asesoria(String dia, String hora, String lugar, Estado estado) {
         this.dia = dia;
         this.hora = hora;
         this.lugar = lugar;
+        this.estado = estado;
+
+    }
+
+    public Asesoria(String dia, String hora, String lugar, Estado estado, List<String> alumnos, float calific) {
+        this.dia = dia;
+        this.hora = hora;
+        this.lugar = lugar;
+        this.estado = estado;
+        this.alumnos = alumnos;
+        this.calific = calific;
     }
 
     public String getDia() {

@@ -1,6 +1,8 @@
 package com.ulima.sw.Asesorias.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +21,7 @@ import com.ulima.sw.Asesorias.asebeans.Sesion;
 import com.ulima.sw.Asesorias.cursos.alumnoCursosPresenterImp;
 import com.ulima.sw.Asesorias.cursos.cursosPresenter;
 import com.ulima.sw.Asesorias.cursos.cursosView;
+import com.ulima.sw.Asesorias.Informacion.InformActivity;
 import com.ulima.sw.Asesorias.cursos.profesorCursosPresenterImpp;
 
 import java.util.HashMap;
@@ -34,7 +37,8 @@ public class fragCursos extends Fragment implements cursosView {
     private cursosPresenter lPresenter;
     private Sesion ses;
     private ProgressDialog dialog;
-
+    private List<Curso>
+            Tcursos;
     public fragCursos() {
         // Required empty public constructor
     }
@@ -52,6 +56,8 @@ public class fragCursos extends Fragment implements cursosView {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.frag_cursos, container, false);
     }
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -107,11 +113,16 @@ public class fragCursos extends Fragment implements cursosView {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-
+                Intent intent = new Intent(getActivity(), InformActivity.class);
+                intent.putExtra("curso",Tcursos.get(groupPosition));
+                intent.putExtra("child",childPosition);
+                getActivity().startActivity(intent);
                 return false;
             }
         });
     }
+
+
 
 
     @Override
@@ -129,6 +140,7 @@ public class fragCursos extends Fragment implements cursosView {
 
     @Override
     public void mostrarCursos(List<Curso> cursos) {
+        Tcursos = cursos;
         listAdapter = new ListadoExpansibleCursosAdapter(getContext(), cursos);
         // setting list adapter
         expListView.setAdapter(listAdapter);
@@ -136,4 +148,6 @@ public class fragCursos extends Fragment implements cursosView {
         dialog.dismiss();
 
     }
+
+
 }

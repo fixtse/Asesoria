@@ -6,25 +6,35 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ulima.sw.Asesorias.R;
-
+import com.ulima.sw.Asesorias.asebeans.Curso;
 
 
 public class InformActivity extends AppCompatActivity implements InformView {
-    ImageView imgE;
-    InformView iView;
-    TextView txtEquipo,txtPG,txtPP;
-    InformPresenter Ipresenter;
-    ProgressDialog dialog;
+    private ImageView imgE;
+    private InformView iView;
+    private TextView txtEstado,txtLugar,txtHora,txtCal;
+    private ProgressDialog dialog;
+    private Curso curso;
+    private int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Información");
+
+        Intent intentPasado = getIntent();
+        curso = (Curso)intentPasado.getSerializableExtra("curso");
+        pos = intentPasado.getIntExtra("child",0);
+
+        setTitle(curso.getNombre());
+
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -36,35 +46,38 @@ public class InformActivity extends AppCompatActivity implements InformView {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
-        setPresenter(new InformPresenterImp(this));
-        Intent intentPasado = getIntent();
-        Ipresenter.obtenerEquipo(intentPasado.getIntExtra("id",0));
+        mostrarAsesoria();
+
+        //setPresenter(new InformPresenterImp(this));
+
+        //Ipresenter.obtenerEquipo(intentPasado.getIntExtra("id",0));
     }
 
-    @Override
+    /*@Override
     public void setPresenter(InformPresenter presenter) {
         Ipresenter = presenter;
     }
 
-    @Override
-    /*public void mostrarPedido(Pedido equipo) {
+    @Override*/
+    public void mostrarAsesoria() {
 
-        imgE = (ImageView)findViewById(R.id.imgE);
-        txtEquipo = (TextView)findViewById(R.id.txtOrden);
-        txtPG = (TextView)findViewById(R.id.txtPP);
-        txtPP = (TextView)findViewById(R.id.txtPG);
+        imgE = (ImageView)findViewById(R.id.iEstado);
+        txtEstado = (TextView)findViewById(R.id.txtEstado);
+        txtLugar = (TextView)findViewById(R.id.tLugar);
+        txtHora = (TextView)findViewById(R.id.tHora);
+        txtCal = (TextView)findViewById(R.id.tCal);
 
-        txtEquipo.setText("Equipo " + equipo.getNombre());
-        txtPG.setText("Partidos Ganados: "+equipo.getPartidosGanados());
-        txtPP.setText("Partidos Perdidos: "+equipo.getPartidosPerdidos());
-        Picasso.with(this)
-                .load(equipo.getUrlFoto())
-                .fit()
-                .centerCrop()
-                .into(imgE);
+        imgE.setImageResource(android.R.drawable.ic_media_play);
+
+        txtEstado.setText(curso.getAsesorias().get(pos).getEstado().getEstado());
+
+       txtLugar.setText("Salón: "+curso.getAsesorias().get(pos).getLugar());
+        txtHora.setText("Hora: " +curso.getAsesorias().get(pos).getHora());
+        txtCal.setText("Calificación: "+curso.getAsesorias().get(pos).getCalific());
+
         dialog.dismiss();
 
-    }*/
+    }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -77,7 +90,22 @@ public class InformActivity extends AppCompatActivity implements InformView {
                     NavUtils.navigateUpFromSameTask(this);
                 }
                 return true;
+
+            case R.id.men_op1:
+                //seguir asesoria
+                break;
+
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    public void onMensaje(View view){
+
     }
 }

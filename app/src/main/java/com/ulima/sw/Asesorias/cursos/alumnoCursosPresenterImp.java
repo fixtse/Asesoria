@@ -2,6 +2,7 @@ package com.ulima.sw.Asesorias.cursos;
 
 import com.ulima.sw.Asesorias.asebeans.Asesoria;
 import com.ulima.sw.Asesorias.asebeans.Curso;
+import com.ulima.sw.Asesorias.asebeans.Estado;
 import com.ulima.sw.Asesorias.cursos.cursosView;
 import com.ulima.sw.Asesorias.cursos.cursosPresenter;
 
@@ -41,10 +42,13 @@ public class alumnoCursosPresenterImp implements cursosPresenter {
 
             }
         });*/
+        Estado e1 = new Estado("",1,"Libre");
+        Estado e2 = new Estado("",2,"Ocupado");
+        Estado e3 = new Estado("",0,"No disponible");
         List<Asesoria> asesorias = new ArrayList<>();
-        Asesoria a1 = new Asesoria("Lunes","18:00","S-160");
-        Asesoria a2 = new Asesoria("Jueves","09:00","G-102");
-        Asesoria a3 = new Asesoria("Viernes","14:00","W-502");
+        Asesoria a1 = new Asesoria("Lunes","18:00","S-160",e1);
+        Asesoria a2 = new Asesoria("Jueves","09:00","G-102",e2);
+        Asesoria a3 = new Asesoria("Viernes","14:00","W-502",e3);
 
 
         asesorias.add(a1);
