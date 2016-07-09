@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "961561496819",
+    "firebase_url": "https://asesoriaul.firebaseio.com",
+    "project_id": "asesoriaul",
+    "storage_bucket": "asesoriaul.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961561496819:android:230dcb4f7d41fc6e",
+        "android_client_info": {
+          "package_name": "com.ulima.sw.asesorias"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "961561496819-73kbpab15me8um4g82prfi3ukls63i94.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ulima.sw.asesorias",
+            "certificate_hash": "FF3103A867125F323F0AC780236C9F7AB4F68E3D"
+          }
+        },
+        {
+          "client_id": "961561496819-ie8mrilit5ql159g527t2nma6un14fgo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCS4fKQct8t12fEINv-16fMlMZCCRMod4s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "961561496819-ie8mrilit5ql159g527t2nma6un14fgo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

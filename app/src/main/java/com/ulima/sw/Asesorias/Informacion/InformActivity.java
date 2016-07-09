@@ -1,9 +1,14 @@
 package com.ulima.sw.Asesorias.Informacion;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +20,7 @@ import android.widget.TextView;
 
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.asebeans.Curso;
+import com.ulima.sw.Asesorias.asebeans.Sesion;
 
 
 public class InformActivity extends AppCompatActivity implements InformView {
@@ -24,16 +30,25 @@ public class InformActivity extends AppCompatActivity implements InformView {
     private ProgressDialog dialog;
     private Curso curso;
     private int pos;
+    private Sesion ses;
+    private Intent intentPasado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intentPasado = getIntent();
+        ses = new Sesion(this);
+        ses.checkLogin();
+
+        intentPasado = getIntent();
         curso = (Curso)intentPasado.getSerializableExtra("curso");
         pos = intentPasado.getIntExtra("child",0);
 
         setTitle(curso.getNombre());
+
+
+
+
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -67,7 +82,7 @@ public class InformActivity extends AppCompatActivity implements InformView {
         txtHora = (TextView)findViewById(R.id.tHora);
         txtCal = (TextView)findViewById(R.id.tCal);
 
-        imgE.setImageResource(android.R.drawable.ic_media_play);
+        //imgE.setImageResource(android.R.drawable.ic_media_play);
 
         txtEstado.setText(curso.getAsesorias().get(pos).getEstado().getEstado());
 
@@ -92,7 +107,7 @@ public class InformActivity extends AppCompatActivity implements InformView {
                 return true;
 
             case R.id.men_op1:
-                //seguir asesoria
+                notification1(1,R.drawable.notif,curso.getNombre(),curso.getAsesorias().get(pos).getLugar()+" - "+curso.getAsesorias().get(pos).getEstado().getEstado());
                 break;
 
         }
@@ -107,5 +122,33 @@ public class InformActivity extends AppCompatActivity implements InformView {
 
     public void onMensaje(View view){
 
+    }
+
+    public void notification1(int id, int iconId, String titulo, String contenido) {
+
+        //Intent intent = new Intent(this, NotificationReceiverActivity.class);
+        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intentPasado, 0);
+
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(iconId)
+                        .setLargeIcon(BitmapFactory.decodeResource(
+                                getResources(),
+                                R.drawable.ulima
+                                )
+                        )
+                        .setContentTitle(titulo)
+                        .setContentIntent(pIntent)
+                        .setContentText(contenido)
+                        .setAutoCancel(true)
+                        .setColor(getResources().getColor(R.color.colorAccent));
+
+
+        NotificationManager notifyMgr = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
+
+
+        // Construir la notificación y emitirla
+        notifyMgr.notify(id, builder.build());
     }
 }

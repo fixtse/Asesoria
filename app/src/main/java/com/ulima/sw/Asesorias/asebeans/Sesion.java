@@ -3,6 +3,7 @@ package com.ulima.sw.Asesorias.asebeans;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import com.ulima.sw.Asesorias.Login.LoginActivity;
 
@@ -78,6 +79,8 @@ public class Sesion {
 
             // Add new Flag to start new Activity
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Toast.makeText(_context,"Por favor, inicie sesión",
+                    Toast.LENGTH_SHORT).show();
 
             // Staring Login Activity
             _context.startActivity(i);
