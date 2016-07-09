@@ -19,7 +19,8 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/mensaje_itm"
         android:layout_marginTop="2dp"
-
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
         ></ListView></RelativeLayout>
 
 </FrameLayout>
