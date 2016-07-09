@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
-import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,24 +13,27 @@ import android.widget.ListView;
 
 
 import com.ulima.sw.Asesorias.R;
-import com.ulima.sw.Asesorias.adapter.ListadoProfesorAdapter;
+import com.ulima.sw.Asesorias.adapter.ListadoCursosAdapter;
 import com.ulima.sw.Asesorias.asebeans.Curso;
-import com.ulima.sw.Asesorias.lProfesor.lProfesorPresenter;
-import com.ulima.sw.Asesorias.lProfesor.lProfesorPresenterImp;
-import com.ulima.sw.Asesorias.lProfesor.lProfesorView;
+import com.ulima.sw.Asesorias.asebeans.Sesion;
+import com.ulima.sw.Asesorias.cursos.cursosPresenter;
+import com.ulima.sw.Asesorias.cursos.profesorCursosPresenterImpp;
+import com.ulima.sw.Asesorias.cursos.cursosView;
+import com.ulima.sw.Asesorias.cursos.alumnoCursosPresenterImp;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by fixt on 08/07/16.
  */
-public class fragCursos extends ListFragment implements lProfesorView {
+public class fragCursos extends ListFragment implements cursosView {
 
 
-    private lProfesorPresenter lPresenter;
+    private cursosPresenter lPresenter;
     private ListView lstCursos;
     private ProgressDialog dialog;
+    private Sesion ses;
 
 
 
@@ -42,7 +44,7 @@ public class fragCursos extends ListFragment implements lProfesorView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("Cursos");
+        getActivity().setTitle("Listado Cursos");
         //setHasOptionsMenu(true); // Seteo que el fragment va a tener su propio menu de opciones
 
 
@@ -70,6 +72,14 @@ public class fragCursos extends ListFragment implements lProfesorView {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        ses = new Sesion(getContext());
+        ses.checkLogin();
+
+        // get user data from session
+        HashMap<String, String> user = ses.getUserDetails();
+
+        String tipo = user.get(ses.KEY_TIPO);
+
         lstCursos = (ListView)getView().findViewById(android.R.id.list);
 
         dialog = new ProgressDialog(getContext());
@@ -80,13 +90,17 @@ public class fragCursos extends ListFragment implements lProfesorView {
         dialog.show();
 
 
+        if (tipo.equals("1")){
+            setPresenter(new alumnoCursosPresenterImp(this));
+        }else if(tipo.equals("2")){
+            setPresenter(new profesorCursosPresenterImpp(this));
+        }
 
-        setPresenter(new lProfesorPresenterImp(this));
         lPresenter.obtenerCursos();
     }
 
     @Override
-    public void setPresenter(lProfesorPresenter presenter) {
+    public void setPresenter(cursosPresenter presenter) {
         this.lPresenter = presenter;
     }
 
@@ -96,17 +110,19 @@ public class fragCursos extends ListFragment implements lProfesorView {
         return true;
     }*/
 
+
+
     @Override
     public void mostrarCursos(final List<Curso> cursos) {
-        //ListFragment.setListAdapter;
-        ListadoProfesorAdapter adapter = new ListadoProfesorAdapter(cursos,getContext());
+
+        ListadoCursosAdapter adapter = new ListadoCursosAdapter(cursos,getContext());
         lstCursos.setAdapter(adapter);
 
         dialog.dismiss();
         /*lstPizzas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ListadoCursosActivity.this, lProfesorActivity.class);
+                Intent intent = new Intent(ListadoCursosActivity.this, cursosActivity.class);
                 intent.putExtra("ingredientes",(Serializable)Pizzas.get(position).getIng());
                 startActivity(intent);
 

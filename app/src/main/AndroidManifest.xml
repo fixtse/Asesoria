@@ -26,7 +26,7 @@
         <activity
             android:name="com.ulima.sw.Asesorias.Pedido.GridActivityT"
             android:parentActivityName="com.ulima.sw.Asesorias.Login.LoginActivity" />
-        <activity android:name=".lProfesor.lProfesorActivity"></activity>
+        <activity android:name=".cursos.cursosActivity"></activity>
     </application>
 
 </manifest>

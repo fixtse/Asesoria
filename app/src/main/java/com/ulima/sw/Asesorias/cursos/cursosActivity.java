@@ -1,6 +1,5 @@
-package com.ulima.sw.Asesorias.lProfesor;
+package com.ulima.sw.Asesorias.cursos;
 
-import android.app.ProgressDialog;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,21 +13,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.ksoichiro.android.observablescrollview.ObservableListView;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.ulima.sw.Asesorias.R;
-import com.ulima.sw.Asesorias.adapter.ListadoProfesorAdapter;
-import com.ulima.sw.Asesorias.asebeans.Curso;
 import com.ulima.sw.Asesorias.asebeans.Sesion;
 import com.ulima.sw.Asesorias.fragments.fragCursos;
 import com.ulima.sw.Asesorias.fragments.fragMensajes;
 
 
 import java.util.HashMap;
-import java.util.List;
 
-public class lProfesorActivity extends AppCompatActivity {
+public class cursosActivity extends AppCompatActivity {
 
 
 
@@ -43,7 +36,7 @@ public class lProfesorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Listado Cursos");
-        setContentView(R.layout.activity_lprofesor);
+        setContentView(R.layout.activity_cursos);
 
         NavigationView navigationView
                 = (NavigationView) findViewById(R.id.nav_view);
@@ -63,9 +56,19 @@ public class lProfesorActivity extends AppCompatActivity {
 
         // name
         String name = user.get(ses.KEY_NAME);
+        String tipo = user.get(ses.KEY_TIPO);
 
-        txtUsuario.setText("Profesor: " + name);
-        imgUsuario.setImageResource(R.drawable.profe);
+        if (tipo.equals("1")){
+            navigationView.inflateMenu(R.menu.menu_alm);
+            txtUsuario.setText("Usuario: " + name);
+            imgUsuario.setImageResource(R.drawable.diego);
+        }else if(tipo.equals("2")){
+            navigationView.inflateMenu(R.menu.menu_prof);
+            txtUsuario.setText("Profesor: " + name);
+            imgUsuario.setImageResource(R.drawable.profe);
+        }
+
+
 
         supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
@@ -78,6 +81,7 @@ public class lProfesorActivity extends AppCompatActivity {
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.flaContenido, new fragCursos());
         tx.commit();
+
 
 
 

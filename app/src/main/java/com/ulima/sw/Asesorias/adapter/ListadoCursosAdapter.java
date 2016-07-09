@@ -12,13 +12,10 @@ import com.ulima.sw.Asesorias.asebeans.Curso;
 
 import java.util.List;
 
-
-
 /**
- * Created by fixt on 05/05/16.
+ * Created by fixt on 15/06/16.
  */
-public class ListadoCursosAdapter extends BaseAdapter{
-
+public class ListadoCursosAdapter extends BaseAdapter {
     private List<Curso> lCursos;
     private LayoutInflater mInflater;
     private Context mContext;
@@ -70,3 +67,4 @@ public class ListadoCursosAdapter extends BaseAdapter{
         TextView tviSeccion;
     }
 }
+

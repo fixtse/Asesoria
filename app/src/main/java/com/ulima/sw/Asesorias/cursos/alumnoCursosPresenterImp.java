@@ -1,6 +1,8 @@
-package com.ulima.sw.Asesorias.listado;
+package com.ulima.sw.Asesorias.cursos;
 
 import com.ulima.sw.Asesorias.asebeans.Curso;
+import com.ulima.sw.Asesorias.cursos.cursosView;
+import com.ulima.sw.Asesorias.cursos.cursosPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +10,11 @@ import java.util.List;
 /**
  * Created by Admin on 6/05/2016.
  */
-public class ListadoCursosPresenterImp implements ListadoCursosPresenter {
+public class alumnoCursosPresenterImp implements cursosPresenter {
 
-    private ListadoCursosView lview;
+    private cursosView lview;
 
-    public ListadoCursosPresenterImp(ListadoCursosView lview) {
+    public alumnoCursosPresenterImp(cursosView lview) {
         this.lview = lview;
     }
 

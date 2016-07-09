@@ -33,6 +33,7 @@ public class Sesion {
 
     // User name (make variable public to access from outside)
     public static final String KEY_NAME = "nombre";
+    public static final String KEY_TIPO = "1";
 
     // Email address (make variable public to access from outside)
 
@@ -44,12 +45,13 @@ public class Sesion {
         editor = pref.edit();
     }
 
-    public void createLoginSession(String name){
+    public void createLoginSession(String name, String tipo){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
         // Storing name in pref
         editor.putString(KEY_NAME, name);
+        editor.putString(KEY_TIPO, tipo);
 
 
         // commit changes
@@ -60,6 +62,7 @@ public class Sesion {
         HashMap<String, String> user = new HashMap<String, String>();
         // user name
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
+        user.put(KEY_TIPO, pref.getString(KEY_TIPO, null));
 
         // return user
         return user;
