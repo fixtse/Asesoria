@@ -3,23 +3,23 @@ package com.ulima.sw.Asesorias.fragments;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
+import android.widget.ExpandableListView;
 
 import com.ulima.sw.Asesorias.R;
-import com.ulima.sw.Asesorias.adapter.ListadoCursosAdapter;
+import com.ulima.sw.Asesorias.adapter.ListadoExpansibleCursosAdapter;
 import com.ulima.sw.Asesorias.asebeans.Curso;
 import com.ulima.sw.Asesorias.asebeans.Sesion;
-import com.ulima.sw.Asesorias.cursos.cursosPresenter;
-import com.ulima.sw.Asesorias.cursos.profesorCursosPresenterImpp;
-import com.ulima.sw.Asesorias.cursos.cursosView;
 import com.ulima.sw.Asesorias.cursos.alumnoCursosPresenterImp;
+import com.ulima.sw.Asesorias.cursos.cursosPresenter;
+import com.ulima.sw.Asesorias.cursos.cursosView;
+import com.ulima.sw.Asesorias.cursos.profesorCursosPresenterImpp;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,15 +27,13 @@ import java.util.List;
 /**
  * Created by fixt on 08/07/16.
  */
-public class fragCursos extends ListFragment implements cursosView {
+public class fragCursos extends Fragment implements cursosView {
 
-
+    private ListadoExpansibleCursosAdapter listAdapter;
+    private ExpandableListView expListView;
     private cursosPresenter lPresenter;
-    private ListView lstCursos;
-    private ProgressDialog dialog;
     private Sesion ses;
-
-
+    private ProgressDialog dialog;
 
     public fragCursos() {
         // Required empty public constructor
@@ -46,26 +44,13 @@ public class fragCursos extends ListFragment implements cursosView {
         super.onCreate(savedInstanceState);
         getActivity().setTitle("Listado Cursos");
         //setHasOptionsMenu(true); // Seteo que el fragment va a tener su propio menu de opciones
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ;
-
-
         return inflater.inflate(R.layout.frag_cursos, container, false);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        inflater.inflate(R.menu.menu_main, menu);
-
     }
 
     @Override
@@ -80,7 +65,8 @@ public class fragCursos extends ListFragment implements cursosView {
 
         String tipo = user.get(ses.KEY_TIPO);
 
-        lstCursos = (ListView)getView().findViewById(android.R.id.list);
+        // get the listview
+        expListView = (ExpandableListView) getView().findViewById(R.id.lvExp);
 
         dialog = new ProgressDialog(getContext());
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -97,6 +83,43 @@ public class fragCursos extends ListFragment implements cursosView {
         }
 
         lPresenter.obtenerCursos();
+        // Listview Group expanded listener
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+
+            }
+        });
+
+        // Listview Group collasped listener
+        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+
+
+            }
+        });
+
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+
+                return false;
+            }
+        });
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.menu_main, menu);
+
     }
 
     @Override
@@ -104,34 +127,13 @@ public class fragCursos extends ListFragment implements cursosView {
         this.lPresenter = presenter;
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }*/
-
-
-
     @Override
-    public void mostrarCursos(final List<Curso> cursos) {
-
-        ListadoCursosAdapter adapter = new ListadoCursosAdapter(cursos,getContext());
-        lstCursos.setAdapter(adapter);
+    public void mostrarCursos(List<Curso> cursos) {
+        listAdapter = new ListadoExpansibleCursosAdapter(getContext(), cursos);
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
 
         dialog.dismiss();
-        /*lstPizzas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ListadoCursosActivity.this, cursosActivity.class);
-                intent.putExtra("ingredientes",(Serializable)Pizzas.get(position).getIng());
-                startActivity(intent);
 
-            }
-
-        });*/
     }
-
-
-
-
 }

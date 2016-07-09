@@ -14,22 +14,16 @@ import com.ulima.sw.Asesorias.R;
 /**
  * Created by fixt on 08/07/16.
  */
-public class fragMensajes extends Fragment {
+public class fragBusqueda extends Fragment {
 
-    /**
-     * A simple {@link Fragment} subclass.
-     */
-
-
-
-    public fragMensajes() {
+    public fragBusqueda() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("Mensajes");
+        getActivity().setTitle("Busqueda");
         //setHasOptionsMenu(true); // Seteo que el fragment va a tener su propio menu de opciones
     }
 
@@ -37,7 +31,7 @@ public class fragMensajes extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.frag_mensajes, container, false);
+        return inflater.inflate(R.layout.frag_busqueda, container, false);
     }
 
     @Override
@@ -46,12 +40,10 @@ public class fragMensajes extends Fragment {
     }
 
     @Override
-        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-            super.onCreateOptionsMenu(menu, inflater);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
 
-            inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.menu_main, menu);
 
-        }
-
-
+    }
 }

@@ -21,7 +21,7 @@ import com.ulima.sw.Asesorias.fragments.fragMensajes;
 
 import java.util.HashMap;
 
-public class cursosActivity extends AppCompatActivity {
+public class mainActivity extends AppCompatActivity {
 
 
 
@@ -36,7 +36,7 @@ public class cursosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Listado Cursos");
-        setContentView(R.layout.activity_cursos);
+        setContentView(R.layout.activity_main);
 
         NavigationView navigationView
                 = (NavigationView) findViewById(R.id.nav_view);
@@ -102,6 +102,9 @@ public class cursosActivity extends AppCompatActivity {
 
                         }else if(item.getItemId() == R.id.CSesion){
                             ses.logoutUser();
+
+                        }else if(item.getItemId() == R.id.mbusqueda){
+                            transaction.replace(R.id.flaContenido, new fragCursos());
 
                         }
 

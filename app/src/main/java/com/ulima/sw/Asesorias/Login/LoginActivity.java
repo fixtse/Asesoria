@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.asebeans.Usuario;
 import com.ulima.sw.Asesorias.asebeans.Sesion;
-import com.ulima.sw.Asesorias.cursos.cursosActivity;
+import com.ulima.sw.Asesorias.cursos.mainActivity;
 
 
 public class LoginActivity extends AppCompatActivity implements LoginView{
@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         if (resp.equalsIgnoreCase("0")){
             Toast.makeText(this, "Credenciales Erradas", Toast.LENGTH_SHORT).show();
         }else{
-            Intent intent = new Intent(this, cursosActivity.class);
+            Intent intent = new Intent(this, mainActivity.class);
             ses.createLoginSession(usuario,resp);
             eteUsuario.setText(null);
             etePassword.setText(null);

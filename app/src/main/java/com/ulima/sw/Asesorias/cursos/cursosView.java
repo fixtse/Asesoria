@@ -1,7 +1,7 @@
 package com.ulima.sw.Asesorias.cursos;
 
 import com.ulima.sw.Asesorias.asebeans.Curso;
-import com.ulima.sw.Asesorias.listado.ListadoCursosPresenter;
+
 
 
 import java.util.List;
