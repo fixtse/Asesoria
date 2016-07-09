@@ -141,6 +141,7 @@ public class InformActivity extends AppCompatActivity implements InformView {
                         .setContentIntent(pIntent)
                         .setContentText(contenido)
                         .setAutoCancel(true)
+                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                         .setColor(getResources().getColor(R.color.colorAccent));
 
 

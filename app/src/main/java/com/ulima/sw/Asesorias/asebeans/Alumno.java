@@ -10,17 +10,15 @@ public class Alumno {
     private String nombres;
     private String apellidos;
     private String facultad;
-    private Usuario usuario;
     private List<Curso> cursos;
 
     public Alumno() {
     }
 
-    public Alumno(String apellidos, List<Curso> cursos, String nombres, Usuario usuario, String facultad) {
+    public Alumno(String apellidos, List<Curso> cursos, String nombres, String facultad) {
         this.apellidos = apellidos;
         this.cursos = cursos;
         this.nombres = nombres;
-        this.usuario = usuario;
         this.facultad = facultad;
     }
 
@@ -48,13 +46,6 @@ public class Alumno {
         this.nombres = nombres;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 
     public String getFacultad() {
         return facultad;

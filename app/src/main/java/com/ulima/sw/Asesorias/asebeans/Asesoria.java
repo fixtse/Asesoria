@@ -14,6 +14,7 @@ public class Asesoria implements Serializable {
     private String lugar;
     private Estado estado;
     private List<String> alumnos;
+    private Profesor profesor;
     private float calific = 0;
 
     public List<String> getAlumnos() {
@@ -58,6 +59,14 @@ public class Asesoria implements Serializable {
         this.estado = estado;
         this.alumnos = alumnos;
         this.calific = calific;
+    }
+
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
     }
 
     public String getDia() {

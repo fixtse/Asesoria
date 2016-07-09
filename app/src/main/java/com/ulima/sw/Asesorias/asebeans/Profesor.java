@@ -9,17 +9,25 @@ public class Profesor {
 
     private String nombres;
     private String apellidos;
-    private Usuario usuario;
-    private List<Asesoria> asesorias;
+
+    private List<Curso> Cursos;
 
     public Profesor() {
     }
 
-    public Profesor(String apellidos, List<Asesoria> asesorias, String nombres, Usuario usuario) {
-        this.apellidos = apellidos;
-        this.asesorias = asesorias;
+    public Profesor(String nombres, String apellidos, List<Curso> cursos) {
         this.nombres = nombres;
-        this.usuario = usuario;
+        this.apellidos = apellidos;
+
+        Cursos = cursos;
+    }
+
+    public List<Curso> getCursos() {
+        return Cursos;
+    }
+
+    public void setCursos(List<Curso> cursos) {
+        Cursos = cursos;
     }
 
     public String getApellidos() {
@@ -30,13 +38,6 @@ public class Profesor {
         this.apellidos = apellidos;
     }
 
-    public List<Asesoria> getAsesorias() {
-        return asesorias;
-    }
-
-    public void setAsesorias(List<Asesoria> asesorias) {
-        this.asesorias = asesorias;
-    }
 
     public String getNombres() {
         return nombres;
@@ -46,11 +47,5 @@ public class Profesor {
         this.nombres = nombres;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 }

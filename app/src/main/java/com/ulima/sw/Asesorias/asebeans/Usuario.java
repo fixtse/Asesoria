@@ -8,6 +8,9 @@ public class Usuario implements Serializable {
     private String usuario;
     private String password;
     private String correo;
+    private int tipo;
+    private Profesor prof;
+    private Alumno alm;
 
     public Usuario() {
     }
@@ -17,13 +20,38 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
-    public Usuario(String usuario, String password, String correo) {
+    public Usuario(String usuario, String password, String correo, int tipo, Profesor prof, Alumno alm) {
         this.usuario = usuario;
         this.password = password;
         this.correo = correo;
+        this.tipo = tipo;
+        this.prof = prof;
+        this.alm = alm;
     }
 
+    public int getTipo() {
+        return tipo;
+    }
 
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
+    public Profesor getProf() {
+        return prof;
+    }
+
+    public void setProf(Profesor prof) {
+        this.prof = prof;
+    }
+
+    public Alumno getAlm() {
+        return alm;
+    }
+
+    public void setAlm(Alumno alm) {
+        this.alm = alm;
+    }
 
     public String getUsuario() {
         return usuario;
