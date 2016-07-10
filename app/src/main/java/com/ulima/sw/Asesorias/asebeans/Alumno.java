@@ -8,34 +8,11 @@ import java.util.List;
 public class Alumno {
 
     private String nombres;
-    private String apellidos;
+    //private String apellidos;
     private String facultad;
-    private List<Curso> cursos;
+    private int idcursos;
 
     public Alumno() {
-    }
-
-    public Alumno(String apellidos, List<Curso> cursos, String nombres, String facultad) {
-        this.apellidos = apellidos;
-        this.cursos = cursos;
-        this.nombres = nombres;
-        this.facultad = facultad;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public List<Curso> getCursos() {
-        return cursos;
-    }
-
-    public void setCursos(List<Curso> cursos) {
-        this.cursos = cursos;
     }
 
     public String getNombres() {
@@ -46,12 +23,19 @@ public class Alumno {
         this.nombres = nombres;
     }
 
-
     public String getFacultad() {
         return facultad;
     }
 
     public void setFacultad(String facultad) {
         this.facultad = facultad;
+    }
+
+    public int getIdcursos() {
+        return idcursos;
+    }
+
+    public void setIdcursos(int idcursos) {
+        this.idcursos = idcursos;
     }
 }

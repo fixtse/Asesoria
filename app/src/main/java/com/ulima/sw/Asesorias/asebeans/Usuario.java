@@ -1,56 +1,18 @@
 package com.ulima.sw.Asesorias.asebeans;
 
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.io.Serializable;
 
-
+@IgnoreExtraProperties
 public class Usuario implements Serializable {
     private String usuario;
     private String password;
-    private String correo;
-    private int tipo;
-    private Profesor prof;
-    private Alumno alm;
+    private String tipo;
+    private long profid, almid;
 
-    public Usuario() {
-    }
-
-    public Usuario(String usuario, String password) {
-        this.usuario = usuario;
-        this.password = password;
-    }
-
-    public Usuario(String usuario, String password, String correo, int tipo, Profesor prof, Alumno alm) {
-        this.usuario = usuario;
-        this.password = password;
-        this.correo = correo;
-        this.tipo = tipo;
-        this.prof = prof;
-        this.alm = alm;
-    }
-
-    public int getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
-    }
-
-    public Profesor getProf() {
-        return prof;
-    }
-
-    public void setProf(Profesor prof) {
-        this.prof = prof;
-    }
-
-    public Alumno getAlm() {
-        return alm;
-    }
-
-    public void setAlm(Alumno alm) {
-        this.alm = alm;
+    public Usuario()  {
     }
 
     public String getUsuario() {
@@ -69,11 +31,27 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public long getProfid() {
+        return profid;
+    }
+
+    public void setProfid(long profid) {
+        this.profid = profid;
+    }
+
+    public long getAlmid() {
+        return almid;
+    }
+
+    public void setAlmid(long almid) {
+        this.almid = almid;
     }
 }

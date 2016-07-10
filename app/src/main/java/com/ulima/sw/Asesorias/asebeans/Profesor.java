@@ -7,45 +7,28 @@ import java.util.List;
  */
 public class Profesor {
 
-    private String nombres;
-    private String apellidos;
+    private String nombre;
+    //private String apellidos;
 
-    private List<Curso> Cursos;
+    private int idCursos;
 
     public Profesor() {
     }
 
-    public Profesor(String nombres, String apellidos, List<Curso> cursos) {
-        this.nombres = nombres;
-        this.apellidos = apellidos;
 
-        Cursos = cursos;
+    public String getNombre() {
+        return nombre;
     }
 
-    public List<Curso> getCursos() {
-        return Cursos;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setCursos(List<Curso> cursos) {
-        Cursos = cursos;
+    public int getIdCursos() {
+        return idCursos;
     }
 
-    public String getApellidos() {
-        return apellidos;
+    public void setIdCursos(int idCursos) {
+        this.idCursos = idCursos;
     }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-
-    public String getNombres() {
-        return nombres;
-    }
-
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
-
-
 }

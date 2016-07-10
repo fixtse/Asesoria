@@ -5,7 +5,7 @@ package com.ulima.sw.Asesorias.Login;
  */
 public interface LoginView {
 
-    public void setPresenter(LoginPresenter presenter);
-    public void callActiviy(String resp);
+
+    public void callActiviy(String resp, String id);
 
 }

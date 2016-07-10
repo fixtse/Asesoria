@@ -24,7 +24,9 @@
 
 
             </activity>
-        <activity android:name=".cursos.mainActivity"></activity>
+        <activity android:name=".cursos.mainActivity">
+
+        </activity>
     </application>
 
 </manifest>

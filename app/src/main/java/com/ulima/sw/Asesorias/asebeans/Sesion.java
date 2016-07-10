@@ -35,6 +35,7 @@ public class Sesion {
     // User name (make variable public to access from outside)
     public static final String KEY_NAME = "nombre";
     public static final String KEY_TIPO = "1";
+    public static final String KEY_ID = "1";
 
     // Email address (make variable public to access from outside)
 
@@ -46,13 +47,13 @@ public class Sesion {
         editor = pref.edit();
     }
 
-    public void createLoginSession(String name, String tipo){
+    public void createLoginSession(String name, String tipo, String id){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
-
         // Storing name in pref
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_TIPO, tipo);
+        editor.putString(KEY_ID, id);
 
 
         // commit changes
@@ -64,6 +65,7 @@ public class Sesion {
         // user name
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
         user.put(KEY_TIPO, pref.getString(KEY_TIPO, null));
+        user.put(KEY_ID, pref.getString(KEY_ID, null));
 
         // return user
         return user;
