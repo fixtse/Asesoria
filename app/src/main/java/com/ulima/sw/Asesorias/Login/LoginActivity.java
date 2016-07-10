@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
                 Usuario user  = dataSnapshot.getValue(Usuario.class) ;
 
 
-                if (user.getUsuario() == null || user.getPassword() == null){
+                if (user == null){
 
                     callActiviy("0","0L");
                 }else{
