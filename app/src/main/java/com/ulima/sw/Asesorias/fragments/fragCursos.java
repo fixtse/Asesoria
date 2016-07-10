@@ -14,6 +14,12 @@ import android.view.ViewGroup;
 
 import android.widget.ExpandableListView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.adapter.ListadoExpansibleCursosAdapter;
 import com.ulima.sw.Asesorias.asebeans.Curso;
@@ -24,7 +30,9 @@ import com.ulima.sw.Asesorias.cursos.cursosView;
 import com.ulima.sw.Asesorias.Informacion.InformActivity;
 import com.ulima.sw.Asesorias.cursos.profesorCursosPresenterImpp;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -38,7 +46,10 @@ public class fragCursos extends Fragment implements cursosView {
     private Sesion ses;
     private ProgressDialog dialog;
     private List<Curso>
-            Tcursos;
+            Tcursos=new ArrayList<>();
+    private FirebaseDatabase database;
+    private String usuarioBD = "alumnos";
+
     public fragCursos() {
         // Required empty public constructor
     }
@@ -89,6 +100,10 @@ public class fragCursos extends Fragment implements cursosView {
         }
 
         lPresenter.obtenerCursos();
+        //obtenerCursos();
+
+
+
         // Listview Group expanded listener
         expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
@@ -122,7 +137,75 @@ public class fragCursos extends Fragment implements cursosView {
         });
     }
 
+    public void obtenerCursos(){
 
+        database = FirebaseDatabase.getInstance();
+        final DatabaseReference loginReference = database.getReference().child(usuarioBD).child(Long.toString(ses.getID()));
+
+        loginReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                final List<Curso> cursos= new ArrayList<>();
+                Iterator<DataSnapshot> it = dataSnapshot.getChildren().iterator();
+
+                while (it.hasNext()){
+
+                    DatabaseReference CursosRef = database.getReference().child("cursillos").child(it.next().getValue().toString());
+
+
+                    CursosRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Curso cur=  dataSnapshot.getValue(Curso.class);
+                            armarLista(cur);
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+
+
+
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //dialog.dismiss();
+
+    }
+
+    public void armarLista(Curso cur){
+        Tcursos.add(cur);
+        System.out.println(cur.getNombre());
+        System.out.println(Tcursos.get(0).getNombre());
+    }
 
 
     @Override

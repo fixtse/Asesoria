@@ -1,6 +1,8 @@
 package com.ulima.sw.Asesorias.asebeans;
 
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.List;
 /**
  * Created by Diego Torres on 7/07/2016.
  */
+@IgnoreExtraProperties
 public class Asesoria implements Serializable {
     private String dia;
     private String hora;

@@ -77,14 +77,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
 
                 if (user == null){
 
-                    callActiviy("0","0L");
+                    callActiviy("0",0L);
                 }else{
                     if (user.getUsuario().equals(usuario) && user.getPassword().equals(password)){
                         if (user.getTipo().equals("2")){
 
-                            callActiviy(""+user.getTipo(),""+user.getProfid());
+                            callActiviy(""+user.getTipo(),user.getProfid());
                         }else{
-                            callActiviy(""+user.getTipo(),""+user.getAlmid());
+                            callActiviy(""+user.getTipo(),user.getAlmid());
                         }
 
 
@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
 
 
     @Override
-    public void callActiviy(String resp, String id) {
+    public void callActiviy(String resp, Long id) {
 
 
 

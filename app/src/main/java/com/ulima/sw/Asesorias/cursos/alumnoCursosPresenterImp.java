@@ -1,5 +1,7 @@
 package com.ulima.sw.Asesorias.cursos;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ulima.sw.Asesorias.asebeans.Asesoria;
 import com.ulima.sw.Asesorias.asebeans.Curso;
 import com.ulima.sw.Asesorias.asebeans.Estado;
@@ -15,6 +17,7 @@ import java.util.List;
 public class alumnoCursosPresenterImp implements cursosPresenter {
 
     private cursosView lview;
+    private FirebaseDatabase database;
 
     public alumnoCursosPresenterImp(cursosView lview) {
         this.lview = lview;
@@ -67,6 +70,10 @@ public class alumnoCursosPresenterImp implements cursosPresenter {
         cursos.add(c3);
         cursos.add(c4);
         cursos.add(c5);
+
+       /* database = FirebaseDatabase.getInstance();
+        final DatabaseReference loginReference = database.getReference().child("cursillos");
+        loginReference.setValue(cursos);*/
 
         lview.mostrarCursos(cursos);
 

@@ -6,6 +6,6 @@ package com.ulima.sw.Asesorias.Login;
 public interface LoginView {
 
 
-    public void callActiviy(String resp, String id);
+    public void callActiviy(String resp, Long id);
 
 }

@@ -1,10 +1,13 @@
 package com.ulima.sw.Asesorias.asebeans;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.io.Serializable;
 
 /**
  * Created by fixt on 09/07/16.
  */
+@IgnoreExtraProperties
 public class Estado implements Serializable {
     private String fechahora;
     private int id;
