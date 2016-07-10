@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@android:drawable/ic_notification_overlay"
+        android:src="@drawable/rojo"
         android:scaleType="fitXY"
         android:paddingRight="15dp"
         />

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/men_p1"
+            android:title="Opcion 1"
+            app:showAsAction="always"
+            android:icon="@drawable/verde"/>
+        <item
+            android:id="@+id/men_p2"
+            android:title="Opcion 1"
+            app:showAsAction="always"
+            android:icon="@drawable/amarillo"/>
+        <item
+            android:id="@+id/men_p3"
+            android:title="Estrella"
+            app:showAsAction="always"
+            android:icon="@drawable/rojo"/>
+    </group>
+</menu>

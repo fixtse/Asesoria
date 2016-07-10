@@ -9,6 +9,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ulima.sw.Asesorias.R;
@@ -56,6 +57,19 @@ public class ListadoExpansibleCursosAdapter extends BaseExpandableListAdapter {
         TextView txtDia =(TextView)convertView.findViewById(R.id.txtDia);
         TextView txtHora =(TextView)convertView.findViewById(R.id.txtHora);
         TextView txtLugar =(TextView)convertView.findViewById(R.id.txtLugar);
+        ImageView imgE =(ImageView)convertView.findViewById(R.id.estado_ic);
+
+        switch (asesoria.getEstado().getId()){
+            case 0:
+                imgE.setImageResource(R.drawable.rojo);
+                break;
+            case 1:
+                imgE.setImageResource(R.drawable.verde);
+                break;
+            case 2:
+                imgE.setImageResource(R.drawable.amarillo);
+                break;
+        }
 
         txtDia.setText(asesoria.getDia());
         txtHora.setText(asesoria.getHora());

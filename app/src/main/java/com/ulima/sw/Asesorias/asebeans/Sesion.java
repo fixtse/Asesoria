@@ -36,6 +36,7 @@ public class Sesion {
     public static final String KEY_NAME = "nombre";
     public static final String KEY_TIPO = "tipo";
     public static final String KEY_ID = "id";
+    public static final String KEY_estado = "estado";
 
     // Email address (make variable public to access from outside)
 
@@ -54,10 +55,21 @@ public class Sesion {
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_TIPO, tipo);
         editor.putLong(KEY_ID, id);
+        editor.putLong(KEY_estado, -1L);
 
 
         // commit changes
         editor.commit();
+    }
+
+    public void actEstado(Long estado){
+        editor.putLong(KEY_estado,estado);
+
+        editor.commit();
+    }
+
+    public Long getEstado(){
+        return pref.getLong(KEY_estado,0l);
     }
 
     public HashMap<String, String> getUserDetails(){

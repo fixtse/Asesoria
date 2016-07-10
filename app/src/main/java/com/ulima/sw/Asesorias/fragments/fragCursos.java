@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -49,6 +50,7 @@ public class fragCursos extends Fragment implements cursosView {
             Tcursos=new ArrayList<>();
     private FirebaseDatabase database;
     private String usuarioBD = "alumnos";
+    private Long L;
 
     public fragCursos() {
         // Required empty public constructor
@@ -85,22 +87,24 @@ public class fragCursos extends Fragment implements cursosView {
         // get the listview
         expListView = (ExpandableListView) getView().findViewById(R.id.lvExp);
 
-        dialog = new ProgressDialog(getContext());
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("Cargando... Por favor espere");
-        dialog.setIndeterminate(true);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
 
 
-        if (tipo.equals("1")){
+            dialog = new ProgressDialog(getContext());
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog.setMessage("Cargando... Por favor espere");
+            dialog.setIndeterminate(true);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+
+
+        /*if (tipo.equals("1")){
             setPresenter(new alumnoCursosPresenterImp(this));
         }else if(tipo.equals("2")){
             setPresenter(new profesorCursosPresenterImpp(this));
         }
 
-        lPresenter.obtenerCursos();
-        //obtenerCursos();
+        lPresenter.obtenerCursos();*/
+            obtenerCursos();
 
 
 
@@ -129,7 +133,7 @@ public class fragCursos extends Fragment implements cursosView {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 Intent intent = new Intent(getActivity(), InformActivity.class);
-                intent.putExtra("curso",Tcursos.get(groupPosition));
+                intent.putExtra("curso",Tcursos.get(groupPosition).getId());
                 intent.putExtra("child",childPosition);
                 getActivity().startActivity(intent);
                 return false;
@@ -146,7 +150,7 @@ public class fragCursos extends Fragment implements cursosView {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                final List<Curso> cursos= new ArrayList<>();
+                final Long Cont =dataSnapshot.getChildrenCount();
                 Iterator<DataSnapshot> it = dataSnapshot.getChildren().iterator();
 
                 while (it.hasNext()){
@@ -154,11 +158,17 @@ public class fragCursos extends Fragment implements cursosView {
                     DatabaseReference CursosRef = database.getReference().child("cursillos").child(it.next().getValue().toString());
 
 
+
                     CursosRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Curso cur=  dataSnapshot.getValue(Curso.class);
-                            armarLista(cur);
+                            Tcursos.add(cur);
+
+                            if (Cont==Tcursos.size()){
+                                mostrarCursos(Tcursos);
+                            }
+
 
 
                         }
@@ -197,16 +207,9 @@ public class fragCursos extends Fragment implements cursosView {
             }
         });
 
-        //dialog.dismiss();
+
 
     }
-
-    public void armarLista(Curso cur){
-        Tcursos.add(cur);
-        System.out.println(cur.getNombre());
-        System.out.println(Tcursos.get(0).getNombre());
-    }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -223,7 +226,7 @@ public class fragCursos extends Fragment implements cursosView {
 
     @Override
     public void mostrarCursos(List<Curso> cursos) {
-        Tcursos = cursos;
+        //Tcursos = cursos;
         listAdapter = new ListadoExpansibleCursosAdapter(getContext(), cursos);
         // setting list adapter
         expListView.setAdapter(listAdapter);

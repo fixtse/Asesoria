@@ -58,16 +58,31 @@ public class mainActivity extends AppCompatActivity {
         // name
         String name = user.get(ses.KEY_NAME);
         String tipo = user.get(ses.KEY_TIPO);
+        if (tipo != null){
+            if (tipo.equals("1")){
+                navigationView.inflateMenu(R.menu.menu_alm);
+                txtUsuario.setText("Usuario: " + name);
+                if (name.equals("diego")){
+                    imgUsuario.setImageResource(R.drawable.d1);
+                }else if(name.equals("sergio")){
+                    imgUsuario.setImageResource(R.drawable.s1);
+                }
+                else{
+                    imgUsuario.setImageResource(R.drawable.diego);
+                }
 
-        if (tipo.equals("1")){
+            }else if(tipo.equals("2")){
+                navigationView.inflateMenu(R.menu.menu_prof);
+                txtUsuario.setText("Profesor: " + name);
+                imgUsuario.setImageResource(R.drawable.profe);
+            }
+
+        }else{
             navigationView.inflateMenu(R.menu.menu_alm);
             txtUsuario.setText("Usuario: " + name);
             imgUsuario.setImageResource(R.drawable.diego);
-        }else if(tipo.equals("2")){
-            navigationView.inflateMenu(R.menu.menu_prof);
-            txtUsuario.setText("Profesor: " + name);
-            imgUsuario.setImageResource(R.drawable.profe);
         }
+
 
 
 

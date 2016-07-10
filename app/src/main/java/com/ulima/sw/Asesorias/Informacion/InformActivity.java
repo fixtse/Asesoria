@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -17,21 +18,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.asebeans.Curso;
 import com.ulima.sw.Asesorias.asebeans.Sesion;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 
 public class InformActivity extends AppCompatActivity implements InformView {
     private ImageView imgE;
-    private InformView iView;
+
     private TextView txtEstado,txtLugar,txtHora,txtCal;
     private ProgressDialog dialog;
     private Curso curso;
     private int pos;
     private Sesion ses;
     private Intent intentPasado;
+    private FirebaseDatabase database;
+    private DatabaseReference CursosRef;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +55,16 @@ public class InformActivity extends AppCompatActivity implements InformView {
         ses.checkLogin();
 
         intentPasado = getIntent();
-        curso = (Curso)intentPasado.getSerializableExtra("curso");
+        int id = intentPasado.getIntExtra("curso",0);
+
+        //curso = (Curso)intentPasado.getSerializableExtra("curso");
         pos = intentPasado.getIntExtra("child",0);
 
-        setTitle(curso.getNombre());
 
 
 
 
+        obtenerCurso(id);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -61,7 +77,7 @@ public class InformActivity extends AppCompatActivity implements InformView {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
-        mostrarAsesoria();
+
 
         //setPresenter(new InformPresenterImp(this));
 
@@ -81,8 +97,38 @@ public class InformActivity extends AppCompatActivity implements InformView {
         txtLugar = (TextView)findViewById(R.id.tLugar);
         txtHora = (TextView)findViewById(R.id.tHora);
         txtCal = (TextView)findViewById(R.id.tCal);
+        switch (curso.getAsesorias().get(pos).getEstado().getId()){
+            case 0:
+                imgE.setImageResource(R.drawable.rojo);
+                break;
+            case 1:
+                imgE.setImageResource(R.drawable.verde);
+                break;
+            case 2:
+                imgE.setImageResource(R.drawable.amarillo);
+                break;
+        }
 
-        //imgE.setImageResource(android.R.drawable.ic_media_play);
+        /*HashMap<String, String> user = ses.getUserDetails();
+
+        String tipo = user.get(ses.KEY_TIPO);
+        if (tipo.equals("1")){
+            if (curso.getAsesorias().get(pos).getAlumnos() != null){
+                if (curso.getAsesorias().get(pos).getAlumnos().contains(ses.getID().toString())) {
+                    if (menu.findItem(R.id.men_op1) != null){
+                        menu.findItem(R.id.men_op1).setIcon(android.R.drawable.checkbox_on_background);
+                    }
+
+                }
+
+            }
+
+
+        }*/
+
+
+
+
 
         txtEstado.setText(curso.getAsesorias().get(pos).getEstado().getEstado());
 
@@ -107,8 +153,56 @@ public class InformActivity extends AppCompatActivity implements InformView {
                 return true;
 
             case R.id.men_op1:
-                notification1(1,R.drawable.notif,curso.getNombre(),curso.getAsesorias().get(pos).getLugar()+" - "+curso.getAsesorias().get(pos).getEstado().getEstado());
+                if (curso.getAsesorias().get(pos).getAlumnos() != null) {
+                    List<String> alm = curso.getAsesorias().get(pos).getAlumnos();
+                    if (!alm.contains(ses.getID().toString())){
+                        alm.add(ses.getID().toString());
+                        curso.getAsesorias().get(pos).setAlumnos(alm);
+                        CursosRef.setValue(curso);
+
+                    }
+
+
+                }else{
+                    List<String> alm = new ArrayList<>();
+                    alm.add(ses.getID().toString());
+                    curso.getAsesorias().get(pos).setAlumnos(alm);
+                    CursosRef.setValue(curso);
+                }
+                menu.findItem(R.id.men_op1).setIcon(android.R.drawable.checkbox_on_background);
+                Toast.makeText(this, "Siguiendo Asesoria", Toast.LENGTH_SHORT).show();
+
                 break;
+            case R.id.men_op2:
+                Float a = curso.getAsesorias().get(pos).getCalific();
+                a = a +1;
+                a= a/curso.getAsesorias().get(pos).getAlumnos().size();
+                curso.getAsesorias().get(pos).setCalific(a);
+                CursosRef.setValue(curso);
+                break;
+            case R.id.men_p1:
+                curso.getAsesorias().get(pos).getEstado().setId(1);
+                curso.getAsesorias().get(pos).getEstado().setEstado("Libre");
+                CursosRef.setValue(curso);
+                break;
+
+            case R.id.men_p2:
+                curso.getAsesorias().get(pos).getEstado().setId(2);
+                curso.getAsesorias().get(pos).getEstado().setEstado("Ocupado");
+                CursosRef.setValue(curso);
+                break;
+
+            case R.id.men_p3:
+                List<String> alm1 = new ArrayList<>();
+                alm1.add("");
+                curso.getAsesorias().get(pos).setAlumnos(alm1);
+                curso.getAsesorias().get(pos).getEstado().setId(0);
+                curso.getAsesorias().get(pos).getEstado().setEstado("No Disponible");
+                curso.getAsesorias().get(pos).setCalific(0);
+                CursosRef.setValue(curso);
+                break;
+
+
 
         }
         return super.onOptionsItemSelected(item);
@@ -116,7 +210,22 @@ public class InformActivity extends AppCompatActivity implements InformView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+
+        HashMap<String, String> user = ses.getUserDetails();
+
+        String tipo = user.get(ses.KEY_TIPO);
+        if (tipo != null){
+            if (tipo.equals("1")){
+                getMenuInflater().inflate(R.menu.menu, menu);
+            }else{
+                getMenuInflater().inflate(R.menu.menu2, menu);
+            }
+        }else{
+            getMenuInflater().inflate(R.menu.menu, menu);
+        }
+
+
+        this.menu = menu;
         return true;
     }
 
@@ -151,5 +260,55 @@ public class InformActivity extends AppCompatActivity implements InformView {
 
         // Construir la notificación y emitirla
         notifyMgr.notify(id, builder.build());
+    }
+
+    public void obtenerCurso(int id){
+        database = FirebaseDatabase.getInstance();
+        CursosRef = database.getReference().child("cursillos").child(Integer.toString(id));
+
+
+        CursosRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                curso = dataSnapshot.getValue(Curso.class);
+                setTitle(curso.getNombre());
+                mostrarAsesoria();
+                HashMap<String, String> user = ses.getUserDetails();
+
+                String tipo = user.get(ses.KEY_TIPO);
+                if (tipo != null) {
+                    if (tipo.equals("1")) {
+                        Long idEstado = ses.getEstado();
+                        int drt = intentPasado.getIntExtra("child", 0);
+                        if (curso.getAsesorias().get(drt).getAlumnos() != null) {
+                            if (curso.getAsesorias().get(drt).getAlumnos().contains(ses.getID().toString())) {
+                                if (curso.getAsesorias().get(drt).getEstado().getId() != idEstado) {
+                                    if (idEstado != -1L) {
+                                        notification1(1, R.drawable.notif, curso.getNombre(), curso.getAsesorias().get(drt).getLugar() + " - " + curso.getAsesorias().get(drt).getEstado().getEstado());
+                                    }
+                                    ses.actEstado(Long.valueOf(curso.getAsesorias().get(drt).getEstado().getId()));
+                                }
+                            }
+                        }
+
+
+                    }
+
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
     }
 }

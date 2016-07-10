@@ -36,9 +36,9 @@ public class profesorCursosPresenterImpp implements cursosPresenter {
         asesorias.add(a3);
 
         List<Curso> cursos = new ArrayList<>();
-        Curso c1 = new Curso(1,"ING. SOFT. II", 801,asesorias);
-        Curso c2 = new Curso(2,"PROG. INTERNET", 602,asesorias);
-        Curso c3 = new Curso(3,"PROG.DISP.MÓVILES", 801,asesorias);
+        Curso c1 = new Curso(0,"ING. SOFT. II", 801,asesorias);
+        Curso c2 = new Curso(1,"PROG. INTERNET", 602,asesorias);
+        Curso c3 = new Curso(2,"PROG.DISP.MÓVILES", 801,asesorias);
 
 
         cursos.add(c1);

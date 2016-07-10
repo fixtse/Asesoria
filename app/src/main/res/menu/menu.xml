@@ -6,6 +6,11 @@
             android:id="@+id/men_op1"
             android:title="Opcion 1"
             app:showAsAction="always"
-            android:icon="@android:drawable/ic_menu_myplaces"/>
+            android:icon="@android:drawable/checkbox_off_background"/>
+        <item
+            android:id="@+id/men_op2"
+            android:title="Estrella"
+            app:showAsAction="collapseActionView"
+            android:icon="@android:drawable/star_big_off"/>
     </group>
 </menu>

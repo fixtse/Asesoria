@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 @IgnoreExtraProperties
 public class Estado implements Serializable {
-    private String fechahora;
+
     private int id;
     private String estado;
 
@@ -17,18 +17,11 @@ public class Estado implements Serializable {
     }
 
     public Estado(String hora, int id, String estado) {
-        this.fechahora = hora;
+
         this.id = id;
         this.estado = estado;
     }
 
-    public String getHora() {
-        return fechahora;
-    }
-
-    public void setHora(String hora) {
-        this.fechahora = hora;
-    }
 
     public int getId() {
         return id;
