@@ -81,9 +81,9 @@ public class alumnoCursosPresenterImp implements cursosPresenter {
         cursos.add(c4);
         cursos.add(c5);
 
-        database = FirebaseDatabase.getInstance();
+       /* database = FirebaseDatabase.getInstance();
         final DatabaseReference loginReference = database.getReference().child("cursillos");
-        loginReference.setValue(cursos);
+        loginReference.setValue(cursos);*/
 
         lview.mostrarCursos(cursos);
 
