@@ -27,6 +27,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.google.firebase:firebase-core:$firebase_version"
     compile "com.google.firebase:firebase-database:$firebase_version"
+    compile 'com.melnykov:floatingactionbutton:1.3.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

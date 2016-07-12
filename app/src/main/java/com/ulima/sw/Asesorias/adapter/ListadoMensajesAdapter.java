@@ -22,7 +22,7 @@ public class ListadoMensajesAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Context _context;
 
-    public ListadoMensajesAdapter(List<Mensaje> lMensajes, Context context) {
+    public ListadoMensajesAdapter(Context context,List<Mensaje> lMensajes) {
         this.lMensajes = lMensajes;
         this._context = context;
         mInflater = LayoutInflater.from(context);
