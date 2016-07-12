@@ -1,5 +1,6 @@
 package com.ulima.sw.Asesorias.Informacion;
 
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,8 +29,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.melnykov.fab.FloatingActionButton;
+import com.ulima.sw.Asesorias.Mensajes.FirebaseHelper;
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.asebeans.Curso;
+import com.ulima.sw.Asesorias.asebeans.Mensaje;
 import com.ulima.sw.Asesorias.asebeans.Sesion;
 
 import java.util.ArrayList;
@@ -39,6 +44,7 @@ public class InformActivity extends AppCompatActivity implements InformView {
     private ImageView imgE;
 
     private TextView txtEstado,txtLugar,txtHora,txtCal;
+    private FirebaseHelper helper;
     private ProgressDialog dialog;
     private Curso curso;
     private int pos;
@@ -65,7 +71,7 @@ public class InformActivity extends AppCompatActivity implements InformView {
         setContentView(R.layout.activity_informacion);
 
 
-        obtenerCurso(id);
+
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -79,6 +85,8 @@ public class InformActivity extends AppCompatActivity implements InformView {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
+        obtenerCurso(id);
+
 
 
         //setPresenter(new InformPresenterImp(this));
@@ -87,9 +95,84 @@ public class InformActivity extends AppCompatActivity implements InformView {
     }
 
     public void onFav(View view){
-        Toast.makeText(this, "AÑADIR", Toast.LENGTH_SHORT).show();
+        displayInputDialog();
 
     }
+
+    private void displayInputDialog()
+    {
+        Dialog d=new Dialog(this);
+        d.setTitle("Para: "+curso.getAsesorias().get(pos).getProfesor());
+        d.setContentView(R.layout.input_dialog);
+        final EditText ContenidoTxt= (EditText) d.findViewById(R.id.Contenido);
+        Button saveBtn= (Button) d.findViewById(R.id.saveBtn);
+
+        //Instancia de Firebase
+        database = FirebaseDatabase.getInstance();
+
+
+
+
+
+
+
+
+        //SAVE
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //GET DATA
+                String contenido=ContenidoTxt.getText().toString();
+
+                //SET DATA
+
+                //SIMPLE VALIDATION
+                if(contenido != null && contenido.trim().length()>0)
+                {
+                    List<String> contenidos = new ArrayList<String>();
+                    contenidos.add(contenido);
+                    HashMap<String, String> user = ses.getUserDetails();
+
+                    // name
+                    String name = user.get(ses.KEY_NAME);
+                    DatabaseReference mensajesref = database.getReference().child("mensajes");
+
+                    Mensaje mje= new Mensaje(contenidos,"1",curso.getNombre(),0L,name,curso.getAsesorias().get(pos).getProfesor(),ses.getID());
+                    mensajesref.push().setValue(mje);
+                    final DatabaseReference alumnoref =database.getReference().child("alumnos").child(String.valueOf(ses.getID())).child("idMensaje");
+                    final DatabaseReference profref = database.getReference().child("profesores").child(String.valueOf(0)).child("idMensaje");
+
+                    mensajesref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            alumnoref.push().setValue(dataSnapshot.getChildrenCount()-1);
+                            profref.push().setValue(dataSnapshot.getChildrenCount()-1);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    //THEN SAVE
+                   /* if(helper.save(contenido))
+                    {
+                        //IF SAVED CLEAR EDITXT
+                        ContenidoTxt.setText("");
+                    }*/
+                }else
+                {
+                    Toast.makeText(InformActivity.this, "Ingrese mensaje", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        d.show();
+    }
+
+
+
 
     /*@Override
     public void setPresenter(InformPresenter presenter) {

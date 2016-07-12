@@ -37,14 +37,15 @@
                 android:layout_gravity="center"
                 android:hint="Escriba aquí su mensaje"
                 android:layout_weight="1"/>
-            <Button
+            <com.melnykov.fab.FloatingActionButton
+                android:id="@+id/fabvs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="Enviar"
-                android:id="@+id/butMensaje"
-
+                android:layout_gravity="right|center"
+                android:src="@android:drawable/ic_menu_send"
+                fab:fab_colorNormal="@color/colorPrimary"
+                fab:fab_colorPressed="@color/colorAccent"
+                fab:fab_colorRipple="@color/material_blue_500"
                 android:onClick="onMensaje"
                 />
         </LinearLayout>
