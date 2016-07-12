@@ -17,7 +17,7 @@ public class Asesoria implements Serializable {
     private String lugar;
     private Estado estado;
     private List<String> alumnos;
-    private Profesor profesor;
+    private String profesor;
     private float calific = 0;
 
     public List<String> getAlumnos() {
@@ -64,11 +64,11 @@ public class Asesoria implements Serializable {
         this.calific = calific;
     }
 
-    public Profesor getProfesor() {
+    public String getProfesor() {
         return profesor;
     }
 
-    public void setProfesor(Profesor profesor) {
+    public void setProfesor(String profesor) {
         this.profesor = profesor;
     }
 

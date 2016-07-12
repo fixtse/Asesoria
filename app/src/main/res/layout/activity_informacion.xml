@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:background="#376ba6"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -16,8 +18,10 @@
 
     <LinearLayout
         android:orientation="horizontal" android:layout_width="match_parent"
-        android:layout_height="0dp"  android:layout_marginLeft="20dp"
-        android:layout_weight="1"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_height="wrap_content"  android:layout_marginLeft="20dp"
+
         >
         <ImageView
             android:layout_width="wrap_content"
@@ -61,24 +65,29 @@
         android:layout_marginLeft="20dp"
         android:text="Calificacion" />
 
-    <EditText
+    <TextView
+        android:id="@+id/CantAlm"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:id="@+id/ediMensaje"
-        android:hint="Escriba aquí su mensaje"
-        android:layout_margin="10dp"
-        android:layout_weight="2"/>
-    <Button
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Enviar Mensaje"
-        android:id="@+id/butMensaje"
-        android:onClick="onMensaje"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"/>
+
+
 
 
 
 </LinearLayout>
-</RelativeLayout>
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="40dp"
+        android:src="@android:drawable/ic_menu_add"
+        fab:fab_colorNormal="@color/colorPrimary"
+        fab:fab_colorPressed="@color/colorAccent"
+        fab:fab_colorRipple="@color/material_blue_500"
+        android:onClick="onFav"
+        />
+</FrameLayout>

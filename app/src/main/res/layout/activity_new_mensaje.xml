@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#376ba6"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/shadow" >
+
+
+
+
+        <ListView
+            android:layout_width="match_parent"
+            android:id="@+id/lstContenido"
+            android:layout_height="0dp"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="5"
+            tools:listitem="@layout/contenido_itm"></ListView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/ediMensaje"
+                android:layout_gravity="center"
+                android:hint="Escriba aquí su mensaje"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Enviar"
+                android:id="@+id/butMensaje"
+
+                android:onClick="onMensaje"
+                />
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+</RelativeLayout>

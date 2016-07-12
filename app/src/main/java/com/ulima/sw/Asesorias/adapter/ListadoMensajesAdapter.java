@@ -2,6 +2,7 @@ package com.ulima.sw.Asesorias.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +22,13 @@ public class ListadoMensajesAdapter extends BaseAdapter {
     private List<Mensaje> lMensajes;
     private LayoutInflater mInflater;
     private Context _context;
+    private String tipo;
 
-    public ListadoMensajesAdapter(Context context,List<Mensaje> lMensajes) {
+    public ListadoMensajesAdapter(Context context,List<Mensaje> lMensajes,String tipo) {
         this.lMensajes = lMensajes;
         this._context = context;
         mInflater = LayoutInflater.from(context);
+        this.tipo = tipo;
     }
 
     @Override
@@ -49,17 +52,29 @@ public class ListadoMensajesAdapter extends BaseAdapter {
         Mensaje mensaje = (Mensaje)getItem(position);
 
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.frag_mensajes, null);
+            convertView = mInflater.inflate(R.layout.mensaje_itm, null);
         }
 
         TextView tviCurso =  (TextView)convertView.findViewById(R.id.txtCurso);
-        TextView tviAlumno = (TextView)convertView.findViewById(R.id.txtAlumno);
         TextView tviCont = (TextView)convertView.findViewById(R.id.txtCont);
-        tviCurso.setTypeface(null, Typeface.BOLD);
-        tviCurso.setText(mensaje.getCurso());
-        tviAlumno.setText(mensaje.getIdAlumno());
-        tviCont.setText(mensaje.getContenido());
-       // tviSeccion.setText("Sección: " + curso.getSeccion());
+
+        if (tipo.equals("1")){
+            tviCurso.setText(Html.fromHtml("<b>Profesor:</b> " +mensaje.getUsuarioPROF().toUpperCase() + " <b>("+mensaje.getCurso()+")</b>"));
+        }else{
+            tviCurso.setText(Html.fromHtml("<b>Alumno:</b> " +mensaje.getUsuarioAL() + " <b>("+mensaje.getCurso()+")</b>"));
+        }
+
+
+        int posC;
+        if (mensaje.getContenidos().size()-1 == 0){
+            posC = 0;
+
+        }else{
+            posC = mensaje.getContenidos().size()-1;
+        }
+
+        tviCont.setText(Html.fromHtml("<b>Mensaje:</b> "+mensaje.getContenidos().get(posC)));
+
 
         return convertView;
     }

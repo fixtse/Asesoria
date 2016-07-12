@@ -2,40 +2,56 @@ package com.ulima.sw.Asesorias.asebeans;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by fixt on 09/07/16.
  */
 @IgnoreExtraProperties
-public class Mensaje {
+public class Mensaje implements Serializable{
 
-    private String contenido;
-    private int curso;
+    private List<String> contenidos;
+    private String id;
+    private String curso;
     private long idProf;
+    private String usuarioAL, usuarioPROF;
     private long idAlumno;
 
     public Mensaje() {
     }
 
-    public Mensaje(String contenido, int curso, long idProf, long idAlumno) {
-        this.contenido = contenido;
+    public Mensaje(List<String> contenidos, String id, String curso, long idProf, String usuarioAL, String usuarioPROF, long idAlumno) {
+        this.contenidos = contenidos;
+        this.id = id;
         this.curso = curso;
         this.idProf = idProf;
+        this.usuarioAL = usuarioAL;
+        this.usuarioPROF = usuarioPROF;
         this.idAlumno = idAlumno;
     }
 
-    public String getContenido() {
-        return contenido;
+    public List<String> getContenidos() {
+        return contenidos;
     }
 
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
+    public void setContenidos(List<String> contenidos) {
+        this.contenidos = contenidos;
     }
 
-    public int getCurso() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCurso() {
         return curso;
     }
 
-    public void setCurso(int curso) {
+    public void setCurso(String curso) {
         this.curso = curso;
     }
 
@@ -45,6 +61,22 @@ public class Mensaje {
 
     public void setIdProf(long idProf) {
         this.idProf = idProf;
+    }
+
+    public String getUsuarioAL() {
+        return usuarioAL;
+    }
+
+    public void setUsuarioAL(String usuarioAL) {
+        this.usuarioAL = usuarioAL;
+    }
+
+    public String getUsuarioPROF() {
+        return usuarioPROF;
+    }
+
+    public void setUsuarioPROF(String usuarioPROF) {
+        this.usuarioPROF = usuarioPROF;
     }
 
     public long getIdAlumno() {

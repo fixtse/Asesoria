@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.melnykov.fab.FloatingActionButton;
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.asebeans.Curso;
 import com.ulima.sw.Asesorias.asebeans.Sesion;
@@ -42,6 +43,7 @@ public class InformActivity extends AppCompatActivity implements InformView {
     private Curso curso;
     private int pos;
     private Sesion ses;
+    private FloatingActionButton fab;
     private Intent intentPasado;
     private FirebaseDatabase database;
     private DatabaseReference CursosRef;
@@ -60,8 +62,7 @@ public class InformActivity extends AppCompatActivity implements InformView {
         //curso = (Curso)intentPasado.getSerializableExtra("curso");
         pos = intentPasado.getIntExtra("child",0);
 
-
-
+        setContentView(R.layout.activity_informacion);
 
 
         obtenerCurso(id);
@@ -69,7 +70,8 @@ public class InformActivity extends AppCompatActivity implements InformView {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setContentView(R.layout.activity_informacion);
+
+
         dialog = new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage("Cargando... Por favor espere");
@@ -82,6 +84,11 @@ public class InformActivity extends AppCompatActivity implements InformView {
         //setPresenter(new InformPresenterImp(this));
 
         //Ipresenter.obtenerEquipo(intentPasado.getIntExtra("id",0));
+    }
+
+    public void onFav(View view){
+        Toast.makeText(this, "AÑADIR", Toast.LENGTH_SHORT).show();
+
     }
 
     /*@Override
@@ -109,11 +116,11 @@ public class InformActivity extends AppCompatActivity implements InformView {
                 break;
         }
 
-        /*HashMap<String, String> user = ses.getUserDetails();
+        HashMap<String, String> user = ses.getUserDetails();
 
         String tipo = user.get(ses.KEY_TIPO);
         if (tipo.equals("1")){
-            if (curso.getAsesorias().get(pos).getAlumnos() != null){
+            /*if (curso.getAsesorias().get(pos).getAlumnos() != null){
                 if (curso.getAsesorias().get(pos).getAlumnos().contains(ses.getID().toString())) {
                     if (menu.findItem(R.id.men_op1) != null){
                         menu.findItem(R.id.men_op1).setIcon(android.R.drawable.checkbox_on_background);
@@ -121,10 +128,18 @@ public class InformActivity extends AppCompatActivity implements InformView {
 
                 }
 
+            }*/
+
+
+        }else{
+            fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.hide();
+            List <String> alms = curso.getAsesorias().get(pos).getAlumnos();
+            if (alms.contains("")){
+                alms.remove("");
             }
-
-
-        }*/
+            ((TextView)findViewById(R.id.CantAlm)).setText("Alumnos Siguiendo: " +alms.size());
+        }
 
 
 
@@ -159,10 +174,10 @@ public class InformActivity extends AppCompatActivity implements InformView {
                         alm.add(ses.getID().toString());
                         curso.getAsesorias().get(pos).setAlumnos(alm);
                         CursosRef.setValue(curso);
-
+                        if (alm.contains("")){
+                            alm.remove("");
+                        }
                     }
-
-
                 }else{
                     List<String> alm = new ArrayList<>();
                     alm.add(ses.getID().toString());
@@ -229,9 +244,7 @@ public class InformActivity extends AppCompatActivity implements InformView {
         return true;
     }
 
-    public void onMensaje(View view){
 
-    }
 
     public void notification1(int id, int iconId, String titulo, String contenido) {
 

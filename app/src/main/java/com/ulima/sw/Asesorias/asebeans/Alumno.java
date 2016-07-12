@@ -1,18 +1,29 @@
 package com.ulima.sw.Asesorias.asebeans;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.List;
 
 /**
  * Created by Diego Torres on 7/07/2016.
  */
+@IgnoreExtraProperties
 public class Alumno {
 
     private String nombres;
     //private String apellidos;
     private String facultad;
-    private int idcursos;
+    private List<Long> idcursos;
+    private List<Long> idMensaje;
 
     public Alumno() {
+    }
+
+    public Alumno(String nombres, String facultad, List<Long> idcursos, List<Long> idMensaje) {
+        this.nombres = nombres;
+        this.facultad = facultad;
+        this.idcursos = idcursos;
+        this.idMensaje = idMensaje;
     }
 
     public String getNombres() {
@@ -31,11 +42,19 @@ public class Alumno {
         this.facultad = facultad;
     }
 
-    public int getIdcursos() {
+    public List<Long> getIdcursos() {
         return idcursos;
     }
 
-    public void setIdcursos(int idcursos) {
+    public void setIdcursos(List<Long> idcursos) {
         this.idcursos = idcursos;
+    }
+
+    public List<Long> getIdMensaje() {
+        return idMensaje;
+    }
+
+    public void setIdMensaje(List<Long> idMensaje) {
+        this.idMensaje = idMensaje;
     }
 }

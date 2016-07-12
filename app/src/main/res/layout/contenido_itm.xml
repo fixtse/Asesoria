@@ -9,24 +9,12 @@
     android:paddingBottom="15dp"
     android:background="#FFFFFF"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView
-        android:id="@+id/txtCurso"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Profesor: "
-        android:textColor="#000000"
-        android:ellipsize="end"
-        android:singleLine="true"/>
-
-
 
     <TextView
         android:id="@+id/txtCont"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Mensaje: "
-        android:maxLines="2"
-        android:ellipsize="end"
         android:textColor="#000000"
         />
 

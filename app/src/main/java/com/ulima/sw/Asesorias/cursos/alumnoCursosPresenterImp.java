@@ -5,6 +5,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.ulima.sw.Asesorias.asebeans.Asesoria;
 import com.ulima.sw.Asesorias.asebeans.Curso;
 import com.ulima.sw.Asesorias.asebeans.Estado;
+import com.ulima.sw.Asesorias.asebeans.Profesor;
 import com.ulima.sw.Asesorias.cursos.cursosView;
 import com.ulima.sw.Asesorias.cursos.cursosPresenter;
 
@@ -52,7 +53,9 @@ public class alumnoCursosPresenterImp implements cursosPresenter {
         Asesoria a1 = new Asesoria("Lunes","18:00","S-160",e1);
         Asesoria a2 = new Asesoria("Jueves","09:00","G-102",e2);
         Asesoria a3 = new Asesoria("Viernes","14:00","W-502",e3);
-
+        a1.setProfesor("HQUINTANA");
+        a2.setProfesor("HQUINTANA");
+        a3.setProfesor("HQUINTANA");
         List<String> alum = new ArrayList<>();
         String idAl1 = "0";
         String idAl2 = "1";
@@ -81,11 +84,11 @@ public class alumnoCursosPresenterImp implements cursosPresenter {
         cursos.add(c4);
         cursos.add(c5);
 
-       /* database = FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance();
         final DatabaseReference loginReference = database.getReference().child("cursillos");
-        loginReference.setValue(cursos);*/
+        loginReference.setValue(cursos);
 
-        lview.mostrarCursos(cursos);
+        //lview.mostrarCursos(cursos);
 
     }
 

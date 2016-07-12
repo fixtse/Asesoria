@@ -144,11 +144,53 @@ public class fragCursos extends Fragment implements cursosView {
     public void obtenerCursos(){
 
         database = FirebaseDatabase.getInstance();
-        final DatabaseReference loginReference = database.getReference().child(usuarioBD).child(Long.toString(ses.getID()));
+        final DatabaseReference loginReference = database.getReference().child(usuarioBD).child(Long.toString(ses.getID())).child("idCursos");
 
-        loginReference.addChildEventListener(new ChildEventListener() {
+
+        loginReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                final Long Cont =dataSnapshot.getChildrenCount();
+                Iterator<DataSnapshot> it = dataSnapshot.getChildren().iterator();
+
+                while (it.hasNext()){
+
+                    DatabaseReference CursosRef = database.getReference().child("cursillos").child(it.next().getValue().toString());
+                    //System.out.println(it.next().getValue().toString());
+
+
+                    CursosRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Curso cur=  dataSnapshot.getValue(Curso.class);
+                            Tcursos.add(cur);
+
+                            if (Cont==Tcursos.size()){
+                                mostrarCursos(Tcursos);
+                            }
+
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+            }}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        /*loginReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
 
                 final Long Cont =dataSnapshot.getChildrenCount();
                 Iterator<DataSnapshot> it = dataSnapshot.getChildren().iterator();
@@ -184,7 +226,7 @@ public class fragCursos extends Fragment implements cursosView {
 
 
 
-            }
+           }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
@@ -205,7 +247,7 @@ public class fragCursos extends Fragment implements cursosView {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
 
 
