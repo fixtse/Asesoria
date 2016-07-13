@@ -45,7 +45,7 @@ public class fragCursos extends Fragment implements cursosView {
     private List<Curso>
             Tcursos=new ArrayList<>();
     private FirebaseDatabase database;
-    private String usuarioBD = "alumnos";
+    private String usuarioBD;
     private Long L;
 
     public fragCursos() {
@@ -79,6 +79,13 @@ public class fragCursos extends Fragment implements cursosView {
         HashMap<String, String> user = ses.getUserDetails();
 
         String tipo = user.get(ses.KEY_TIPO);
+
+        if (tipo.equals("1")){
+            usuarioBD = "alumnos";
+        }else{
+            usuarioBD = "profesores";
+        }
+
 
         // get the listview
         expListView = (ExpandableListView) getView().findViewById(R.id.lvExp);
@@ -138,6 +145,7 @@ public class fragCursos extends Fragment implements cursosView {
     public void obtenerCursos(){
 
         database = FirebaseDatabase.getInstance();
+
         final DatabaseReference loginReference = database.getReference().child(usuarioBD).child(Long.toString(ses.getID())).child("idCursos");
 
 
@@ -154,7 +162,7 @@ public class fragCursos extends Fragment implements cursosView {
 
 
 
-                    CursosRef.addValueEventListener(new ValueEventListener() {
+                    CursosRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Curso cur=  dataSnapshot.getValue(Curso.class);
@@ -262,8 +270,10 @@ public class fragCursos extends Fragment implements cursosView {
 
     @Override
     public void mostrarCursos(List<Curso> cursos) {
+
         //Tcursos = cursos;
         listAdapter = new ListadoExpansibleCursosAdapter(getContext(), cursos);
+
         // setting list adapter
         expListView.setAdapter(listAdapter);
 

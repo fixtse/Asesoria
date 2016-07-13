@@ -111,6 +111,16 @@ public class NewMensajeActivity extends AppCompatActivity {
 
     }
 
+    private void scrollMyListViewToBottom() {
+        lcontenidos.post(new Runnable() {
+            @Override
+            public void run() {
+                // Select the last row so it will scroll into view...
+                lcontenidos.setSelection(adapter.getCount() - 1);
+            }
+        });
+    }
+
     public void mostrarContenido(Mensaje mensaje){
 
         this.mensaje = mensaje;
@@ -145,6 +155,7 @@ public class NewMensajeActivity extends AppCompatActivity {
                 mensajes.get(id.intValue()).setContenidos(conte);
                 contenidoref.setValue(mensajes);
                 Econtenido.setText("");
+                scrollMyListViewToBottom();
             }
 
             @Override

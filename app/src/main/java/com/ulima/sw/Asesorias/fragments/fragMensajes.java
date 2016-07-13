@@ -127,7 +127,7 @@ public class fragMensajes extends Fragment implements MensajesView {
         CursosRef.orderByChild(ref2).equalTo(ses.getID()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println(dataSnapshot.getValue().toString());
+
                 Mensajes = new ArrayList<Mensaje>();
                 for (DataSnapshot ds : dataSnapshot.getChildren())
                 {

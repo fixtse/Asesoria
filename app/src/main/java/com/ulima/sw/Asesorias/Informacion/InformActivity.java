@@ -214,10 +214,15 @@ public class InformActivity extends AppCompatActivity implements InformView {
             fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.hide();
             List <String> alms = curso.getAsesorias().get(pos).getAlumnos();
-            if (alms.contains("")){
-                alms.remove("");
+            if (alms != null){
+                if (alms.contains("")){
+                    alms.remove("");
+                }
+                ((TextView)findViewById(R.id.CantAlm)).setText("Alumnos Siguiendo: " +alms.size());
+            }else{
+                ((TextView)findViewById(R.id.CantAlm)).setText("Alumnos Siguiendo: "+ 0);
             }
-            ((TextView)findViewById(R.id.CantAlm)).setText("Alumnos Siguiendo: " +alms.size());
+
         }
 
 

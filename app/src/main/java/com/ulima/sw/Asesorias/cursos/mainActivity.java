@@ -61,7 +61,7 @@ public class mainActivity extends AppCompatActivity {
         if (tipo != null){
             if (tipo.equals("1")){
                 navigationView.inflateMenu(R.menu.menu_alm);
-                txtUsuario.setText("Usuario: " + name);
+                txtUsuario.setText("Usuario: " + name.toUpperCase());
                 if (name.equals("diego")){
                     imgUsuario.setImageResource(R.drawable.d1);
                 }else if(name.equals("sergio")){
@@ -73,13 +73,21 @@ public class mainActivity extends AppCompatActivity {
 
             }else if(tipo.equals("2")){
                 navigationView.inflateMenu(R.menu.menu_prof);
-                txtUsuario.setText("Profesor: " + name);
-                imgUsuario.setImageResource(R.drawable.profe);
+                txtUsuario.setText("Profesor: " + name.toUpperCase());
+
+                if (name.equals("hquintan")){
+                    imgUsuario.setImageResource(R.drawable.profe);
+                }else if(name.equals("scastro")){
+                    imgUsuario.setImageResource(R.drawable.c1);
+                }
+                else{
+                    imgUsuario.setImageResource(R.drawable.diego);
+                }
             }
 
         }else{
             navigationView.inflateMenu(R.menu.menu_alm);
-            txtUsuario.setText("Usuario: " + name);
+            txtUsuario.setText("Usuario: " + name.toUpperCase());
             imgUsuario.setImageResource(R.drawable.diego);
         }
 
