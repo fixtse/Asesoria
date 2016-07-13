@@ -136,6 +136,16 @@ public class fragCursos extends Fragment implements cursosView {
                 Intent intent = new Intent(getActivity(), InformActivity.class);
                 intent.putExtra("curso",Tcursos.get(groupPosition).getId());
                 intent.putExtra("child",childPosition);
+                if (Tcursos.get(groupPosition).getAsesorias().get(childPosition).getAlumnos() != null){
+                    if (Tcursos.get(groupPosition).getAsesorias().get(childPosition).getAlumnos().contains(ses.getID().toString())){
+                        intent.putExtra("siguiendo",1);
+                    }else{
+                        intent.putExtra("siguiendo",0);
+                    }
+
+                }
+
+
                 getActivity().startActivity(intent);
                 return false;
             }

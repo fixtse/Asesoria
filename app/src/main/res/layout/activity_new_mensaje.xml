@@ -24,7 +24,11 @@
             android:layout_marginTop="2dp"
             android:layout_marginRight="2dp"
             android:layout_weight="5"
-            tools:listitem="@layout/contenido_itm"></ListView>
+            tools:listitem="@layout/contenido_itm"
+            android:transcriptMode="alwaysScroll"
+            android:stackFromBottom="true"
+            android:divider="@drawable/dividerlst"
+            android:dividerHeight="0.7dp"></ListView>
 
 
         <LinearLayout

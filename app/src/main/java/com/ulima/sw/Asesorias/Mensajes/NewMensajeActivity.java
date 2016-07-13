@@ -155,6 +155,7 @@ public class NewMensajeActivity extends AppCompatActivity {
                 mensajes.get(id.intValue()).setContenidos(conte);
                 contenidoref.setValue(mensajes);
                 Econtenido.setText("");
+                //lcontenidos.smoothScrollToPosition(adapter.getCount() -1);
                 scrollMyListViewToBottom();
             }
 

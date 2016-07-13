@@ -20,7 +20,9 @@
         android:layout_marginTop="2dp"
         android:layout_marginLeft="1dp"
         android:layout_marginRight="1dp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"
+        android:divider="@drawable/dividerlst"
+        android:dividerHeight="1dp"/>
     </RelativeLayout>
 
 </LinearLayout>

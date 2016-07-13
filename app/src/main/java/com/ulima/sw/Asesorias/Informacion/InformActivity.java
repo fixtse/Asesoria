@@ -54,6 +54,7 @@ public class InformActivity extends AppCompatActivity implements InformView {
     private FirebaseDatabase database;
     private DatabaseReference CursosRef;
     private Menu menu;
+    private int idmen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class InformActivity extends AppCompatActivity implements InformView {
 
         //curso = (Curso)intentPasado.getSerializableExtra("curso");
         pos = intentPasado.getIntExtra("child",0);
+        idmen = intentPasado.getIntExtra("siguiendo",0);
 
 
 
@@ -237,6 +239,31 @@ public class InformActivity extends AppCompatActivity implements InformView {
 
         dialog.dismiss();
 
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        HashMap<String, String> user = ses.getUserDetails();
+
+        String tipo = user.get(ses.KEY_TIPO);
+        if (tipo.equals("1")) {
+            if (idmen == 1) {
+
+                    if (menu.findItem(R.id.men_op1) != null) {
+                        menu.findItem(R.id.men_op1).setIcon(android.R.drawable.checkbox_on_background);
+                    }
+
+
+            }
+        }
+      /*  MenuItem mi = (MenuItem) menu.findItem(R.id.GPS);
+
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+     do your changes with its icon
+        item.setIcon(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)? R.drawable.gps_off : R.drawable.gps);*/
+
+        return super.onPrepareOptionsMenu(menu);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
