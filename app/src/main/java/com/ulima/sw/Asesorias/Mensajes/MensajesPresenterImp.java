@@ -30,13 +30,13 @@ public class MensajesPresenterImp implements MensajesPresenter {
         contenidos.add("Este es un lindo mensajito :3 :3 :3");
         contenidos.add("Este es un lindo mensajito :3 :3 pero mas largo o oOO oo :C :) ^^ ¬°¬  :3 asdasdasdasdas");
 
-        Mensaje mensaje = new Mensaje(contenidos,"1","D.I.S.P",0,"Diego","prof",1L);
+       // Mensaje mensaje = new Mensaje(contenidos,"D.I.S.P",0,"Diego","prof",1L);
 
-        Mensaje mensaje2 = new Mensaje(contenidos,"1","D.I.S.P",0,"Diego","prof",1L);
+       // Mensaje mensaje2 = new Mensaje(contenidos,"D.I.S.P",0,"Diego","prof",1L);
         List<Mensaje> mensajes = new ArrayList<>();
 
-        mensajes.add(mensaje);
-        mensajes.add(mensaje2);
+      //  mensajes.add(mensaje);
+      //  mensajes.add(mensaje2);
 
         database = FirebaseDatabase.getInstance();
         final DatabaseReference loginReference = database.getReference().child("mensajes");

@@ -17,7 +17,9 @@ public class Asesoria implements Serializable {
     private String lugar;
     private Estado estado;
     private List<String> alumnos;
+    private Long id;
     private String profesor;
+    private Long idProf;
     private float calific = 0;
 
     public List<String> getAlumnos() {
@@ -47,20 +49,17 @@ public class Asesoria implements Serializable {
         this.estado = estado;
     }
 
-    public Asesoria(String dia, String hora, String lugar, Estado estado) {
-        this.dia = dia;
-        this.hora = hora;
-        this.lugar = lugar;
-        this.estado = estado;
 
-    }
 
-    public Asesoria(String dia, String hora, String lugar, Estado estado, List<String> alumnos, float calific) {
+    public Asesoria(Long id,String dia, String hora, String lugar, Estado estado, List<String> alumnos, String profesor, Long idProf, float calific) {
+        this.id = id;
         this.dia = dia;
         this.hora = hora;
         this.lugar = lugar;
         this.estado = estado;
         this.alumnos = alumnos;
+        this.profesor = profesor;
+        this.idProf = idProf;
         this.calific = calific;
     }
 
@@ -94,5 +93,21 @@ public class Asesoria implements Serializable {
 
     public void setLugar(String lugar) {
         this.lugar = lugar;
+    }
+
+    public Long getIdProf() {
+        return idProf;
+    }
+
+    public void setIdProf(Long idProf) {
+        this.idProf = idProf;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

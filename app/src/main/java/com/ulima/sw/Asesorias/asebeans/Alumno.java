@@ -14,16 +14,16 @@ public class Alumno {
     //private String apellidos;
     private String facultad;
     private List<Long> idcursos;
-    private List<Long> idMensaje;
+
 
     public Alumno() {
     }
 
-    public Alumno(String nombres, String facultad, List<Long> idcursos, List<Long> idMensaje) {
+    public Alumno(String nombres, String facultad, List<Long> idcursos) {
         this.nombres = nombres;
         this.facultad = facultad;
         this.idcursos = idcursos;
-        this.idMensaje = idMensaje;
+
     }
 
     public String getNombres() {
@@ -50,11 +50,5 @@ public class Alumno {
         this.idcursos = idcursos;
     }
 
-    public List<Long> getIdMensaje() {
-        return idMensaje;
-    }
 
-    public void setIdMensaje(List<Long> idMensaje) {
-        this.idMensaje = idMensaje;
-    }
 }

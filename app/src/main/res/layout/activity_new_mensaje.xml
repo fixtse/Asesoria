@@ -21,18 +21,20 @@
             android:id="@+id/lstContenido"
             android:layout_height="0dp"
             android:layout_marginLeft="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="2dp"
             android:layout_weight="5"
             tools:listitem="@layout/contenido_itm"></ListView>
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+
             android:layout_margin="10dp">
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/ediMensaje"
                 android:layout_gravity="center"
                 android:hint="Escriba aquí su mensaje"
@@ -42,6 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center"
+                fab:fab_type="mini"
+                fab:fab_shadow="false"
                 android:src="@android:drawable/ic_menu_send"
                 fab:fab_colorNormal="@color/colorPrimary"
                 fab:fab_colorPressed="@color/colorAccent"

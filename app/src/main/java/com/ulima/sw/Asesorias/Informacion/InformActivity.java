@@ -59,6 +59,8 @@ public class InformActivity extends AppCompatActivity implements InformView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         ses = new Sesion(this);
         ses.checkLogin();
 
@@ -68,9 +70,9 @@ public class InformActivity extends AppCompatActivity implements InformView {
         //curso = (Curso)intentPasado.getSerializableExtra("curso");
         pos = intentPasado.getIntExtra("child",0);
 
+
+
         setContentView(R.layout.activity_informacion);
-
-
 
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -95,91 +97,85 @@ public class InformActivity extends AppCompatActivity implements InformView {
     }
 
     public void onFav(View view){
-        displayInputDialog();
+        ;
+        displayInputDialog(curso.getAsesorias().get(pos).getEstado().getId());
 
     }
 
-    private void displayInputDialog()
+    private void displayInputDialog(final int estado)
     {
-        Dialog d=new Dialog(this);
-        d.setTitle("Para: "+curso.getAsesorias().get(pos).getProfesor());
-        d.setContentView(R.layout.input_dialog);
-        final EditText ContenidoTxt= (EditText) d.findViewById(R.id.Contenido);
-        Button saveBtn= (Button) d.findViewById(R.id.saveBtn);
+        if (estado == 0){
+            Toast.makeText(InformActivity.this, "El profesor no se encuentra disponible", Toast.LENGTH_SHORT).show();
+        }else{
+            final Dialog d=new Dialog(this);
+            d.setTitle("Para: "+curso.getAsesorias().get(pos).getProfesor());
+            d.setContentView(R.layout.input_dialog);
+            final EditText ContenidoTxt= (EditText) d.findViewById(R.id.Contenido);
+            Button saveBtn= (Button) d.findViewById(R.id.saveBtn);
 
-        //Instancia de Firebase
-        database = FirebaseDatabase.getInstance();
+            //Instancia de Firebase
+            database = FirebaseDatabase.getInstance();
+            //SAVE
+            saveBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //GET DATA
+                    String contenido=ContenidoTxt.getText().toString();
 
-
-
-
-
-
-
-
-        //SAVE
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //GET DATA
-                String contenido=ContenidoTxt.getText().toString();
-
-                //SET DATA
-
-                //SIMPLE VALIDATION
-                if(contenido != null && contenido.trim().length()>0)
-                {
-                    List<String> contenidos = new ArrayList<String>();
-                    contenidos.add(contenido);
-                    HashMap<String, String> user = ses.getUserDetails();
-
-                    // name
-                    String name = user.get(ses.KEY_NAME);
-                    DatabaseReference mensajesref = database.getReference().child("mensajes");
-
-                    Mensaje mje= new Mensaje(contenidos,"1",curso.getNombre(),0L,name,curso.getAsesorias().get(pos).getProfesor(),ses.getID());
-                    mensajesref.push().setValue(mje);
-                    final DatabaseReference alumnoref =database.getReference().child("alumnos").child(String.valueOf(ses.getID())).child("idMensaje");
-                    final DatabaseReference profref = database.getReference().child("profesores").child(String.valueOf(0)).child("idMensaje");
-
-                    mensajesref.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                            alumnoref.push().setValue(dataSnapshot.getChildrenCount()-1);
-                            profref.push().setValue(dataSnapshot.getChildrenCount()-1);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-                    //THEN SAVE
-                   /* if(helper.save(contenido))
+                    if(contenido != null && contenido.trim().length()>0)
                     {
-                        //IF SAVED CLEAR EDITXT
-                        ContenidoTxt.setText("");
-                    }*/
-                }else
-                {
-                    Toast.makeText(InformActivity.this, "Ingrese mensaje", Toast.LENGTH_SHORT).show();
+                        final List<String> contenidos = new ArrayList<String>();
+                        HashMap<String, String> user = ses.getUserDetails();
+
+                        // name
+                        final String name = user.get(ses.KEY_NAME);
+                        contenido = "<b>"+name.toUpperCase()+":</b> "+contenido;
+                        contenidos.add(contenido);
+
+                        final DatabaseReference mensajesref = database.getReference().child("mensajes");
+                        mensajesref.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Long id = dataSnapshot.getChildrenCount();
+
+                                Mensaje mje= new Mensaje(contenidos,id,curso.getNombre(),curso.getAsesorias().get(pos).getIdProf(),name,curso.getAsesorias().get(pos).getProfesor(),ses.getID());
+
+                                mensajesref.push().setValue(mje);
+                                ContenidoTxt.setText("");
+                                if (d.isShowing()){
+                                    d.dismiss();
+                                }
+                                if (estado == 1){
+                                    Toast.makeText(InformActivity.this, "El mensaje ha sido enviado", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(InformActivity.this, "Mensaje enviado, El profesor se encuentra ocupado", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }else
+                    {
+                        Toast.makeText(InformActivity.this, "El mensaje no puede estar vacío", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
-        d.show();
+
+            });
+
+            d.show();
+
+        }
+
     }
 
 
 
 
-    /*@Override
-    public void setPresenter(InformPresenter presenter) {
-        Ipresenter = presenter;
-    }
 
-    @Override*/
     public void mostrarAsesoria() {
 
         imgE = (ImageView)findViewById(R.id.iEstado);

@@ -12,16 +12,17 @@ import java.util.List;
 public class Mensaje implements Serializable{
 
     private List<String> contenidos;
-    private String id;
+
     private String curso;
     private long idProf;
+    private long id;
     private String usuarioAL, usuarioPROF;
     private long idAlumno;
 
     public Mensaje() {
     }
 
-    public Mensaje(List<String> contenidos, String id, String curso, long idProf, String usuarioAL, String usuarioPROF, long idAlumno) {
+    public Mensaje(List<String> contenidos,Long id, String curso, long idProf, String usuarioAL, String usuarioPROF, long idAlumno) {
         this.contenidos = contenidos;
         this.id = id;
         this.curso = curso;
@@ -37,14 +38,6 @@ public class Mensaje implements Serializable{
 
     public void setContenidos(List<String> contenidos) {
         this.contenidos = contenidos;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getCurso() {
@@ -85,5 +78,13 @@ public class Mensaje implements Serializable{
 
     public void setIdAlumno(long idAlumno) {
         this.idAlumno = idAlumno;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

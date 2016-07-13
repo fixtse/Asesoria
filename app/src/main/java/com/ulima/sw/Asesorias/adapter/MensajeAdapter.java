@@ -20,13 +20,12 @@ public class MensajeAdapter extends BaseAdapter {
     private Context _context;
     private List<String> lcontenido;
     private LayoutInflater mInflater;
-    private String nombre;
 
-    public MensajeAdapter(Context context, List<String> lcontenido,String nombre) {
+
+    public MensajeAdapter(Context context, List<String> lcontenido) {
         this.lcontenido = lcontenido;
         this._context = context;
         mInflater = LayoutInflater.from(context);
-        this.nombre = nombre;
 
     }
 
@@ -54,8 +53,8 @@ public class MensajeAdapter extends BaseAdapter {
         }
         TextView nameTxt= (TextView) convertView.findViewById(R.id.txtCont);
         final String s= (String) this.getItem(position);
-        nameTxt.setText(Html.fromHtml("<b>"+nombre+":</b> "+s));
+        nameTxt.setText(Html.fromHtml(s));
 
-        return null;
+        return convertView;
     }
 }

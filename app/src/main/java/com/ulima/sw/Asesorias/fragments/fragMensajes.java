@@ -42,7 +42,7 @@ public class fragMensajes extends Fragment implements MensajesView {
     private ListadoMensajesAdapter listAdapter;
     private MensajesPresenter Lpresenter;
     private ListView Lview;
-    private List<Mensaje> Mensajes = new ArrayList<>();
+    private List<Mensaje> Mensajes;
     private ProgressDialog dialog;
     private Sesion ses;
     private FirebaseDatabase database;
@@ -109,71 +109,74 @@ public class fragMensajes extends Fragment implements MensajesView {
 
     public void obtenerMensajes(String tipo){
         database = FirebaseDatabase.getInstance();
-        String ref;
+        String ref,ref2;
         if (tipo.equals("1")){
             ref = "alumnos";
         }else{
             ref = "profesores";
         }
-            final DatabaseReference loginReference = database.getReference().child(ref).child(Long.toString(ses.getID())).child("idMensaje");
 
-            loginReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+        DatabaseReference CursosRef = database.getReference().child("mensajes");
 
-                    final Long Cont =dataSnapshot.getChildrenCount();
-                    Iterator<DataSnapshot> it = dataSnapshot.getChildren().iterator();
+        if (tipo.equals("1")){
+            ref2 = "idAlumno";
+        }else{
+            ref2 = "idProf";
+        }
 
-                    while (it.hasNext()){
-
-                        DatabaseReference CursosRef = database.getReference().child("mensajes").child(it.next().getValue().toString());
-
-
-                        CursosRef.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                Mensaje men=  dataSnapshot.getValue(Mensaje.class);
-                                Mensajes.add(men);
-
-                                if (Cont==Mensajes.size()){
-                                    mostrarMensajes(Mensajes);
-                                }
-
-
-
-                            }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-                    }}
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-    }
-
-    @Override
-    public void mostrarMensajes(List<Mensaje> mensajes) {
-
-        this.Mensajes = mensajes;
-
-        listAdapter = new ListadoMensajesAdapter(getContext(), mensajes,tipo);
-        // setting list adapter
-        Lview.setAdapter(listAdapter);
-        Lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        CursosRef.orderByChild(ref2).equalTo(ses.getID()).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.println(dataSnapshot.getValue().toString());
+                Mensajes = new ArrayList<Mensaje>();
+                for (DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    Mensaje men = ds.getValue(Mensaje.class);
+                    Mensajes.add(men);
+                }
+                if (Mensajes != null) {
+                    mostrarMensajes(Mensajes);
+                }
 
-                Intent intent = new Intent(getContext(),NewMensajeActivity.class);
-                intent.putExtra("Mensaje",Mensajes.get(i));
-                startActivity(intent);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+
+
+
+
+
+
+    }
+
+    @Override
+    public void mostrarMensajes(final List<Mensaje> mensajes) {
+
+        this.Mensajes = mensajes;
+        if (getActivity() != null) {
+            // Code goes here.
+            listAdapter = new ListadoMensajesAdapter(getContext(), mensajes,tipo);
+            // setting list adapter
+            Lview.setAdapter(listAdapter);
+            Lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    Intent intent = new Intent(getActivity(),NewMensajeActivity.class);
+                    intent.putExtra("id",Mensajes.get(i).getId());
+
+
+
+                    getActivity().startActivity(intent);
+
+                }
+            });
+        }
+
 
         dialog.dismiss();
 

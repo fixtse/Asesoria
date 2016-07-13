@@ -46,26 +46,19 @@ public class alumnoCursosPresenterImp implements cursosPresenter {
 
             }
         });*/
-        Estado e1 = new Estado("",1,"Libre");
-        Estado e2 = new Estado("",2,"Ocupado");
-        Estado e3 = new Estado("",0,"No disponible");
-        List<Asesoria> asesorias = new ArrayList<>();
-        Asesoria a1 = new Asesoria("Lunes","18:00","S-160",e1);
-        Asesoria a2 = new Asesoria("Jueves","09:00","G-102",e2);
-        Asesoria a3 = new Asesoria("Viernes","14:00","W-502",e3);
-        a1.setProfesor("HQUINTANA");
-        a2.setProfesor("HQUINTANA");
-        a3.setProfesor("HQUINTANA");
         List<String> alum = new ArrayList<>();
         String idAl1 = "0";
         String idAl2 = "1";
 
         alum.add(idAl1);
         alum.add(idAl2);
-
-        a1.setAlumnos(alum);
-        a2.setAlumnos(alum);
-        a3.setAlumnos(alum);
+        Estado e1 = new Estado("",1,"Libre");
+        Estado e2 = new Estado("",2,"Ocupado");
+        Estado e3 = new Estado("",0,"No disponible");
+        List<Asesoria> asesorias = new ArrayList<>();
+        Asesoria a1 = new Asesoria(0l,"Lunes","18:00","S-160",e1,alum,"HQUINTAN",0L,0L);
+        Asesoria a2 = new Asesoria(1l,"Jueves","09:00","G-102",e2,alum,"HQUINTAN",0L,0L);
+        Asesoria a3 = new Asesoria(2l,"Viernes","14:00","W-502",e3,alum,"HQUINTAN",0L,0L);
 
         asesorias.add(a1);
         asesorias.add(a2);

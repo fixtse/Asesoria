@@ -62,6 +62,8 @@ public class Sesion {
         editor.commit();
     }
 
+
+
     public void actEstado(Long estado){
         editor.putLong(KEY_estado,estado);
 

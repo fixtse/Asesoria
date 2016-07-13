@@ -1,6 +1,5 @@
 package com.ulima.sw.Asesorias.fragments;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +26,6 @@ import com.ulima.sw.Asesorias.cursos.alumnoCursosPresenterImp;
 import com.ulima.sw.Asesorias.cursos.cursosPresenter;
 import com.ulima.sw.Asesorias.cursos.cursosView;
 import com.ulima.sw.Asesorias.Informacion.InformActivity;
-import com.ulima.sw.Asesorias.cursos.profesorCursosPresenterImpp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -97,14 +93,12 @@ public class fragCursos extends Fragment implements cursosView {
             dialog.show();
 
 
-        /*if (tipo.equals("1")){
-            setPresenter(new alumnoCursosPresenterImp(this));
-        }else if(tipo.equals("2")){
-            setPresenter(new profesorCursosPresenterImpp(this));
-        }
+
+        /*setPresenter(new alumnoCursosPresenterImp(this));
+
 
         lPresenter.obtenerCursos();*/
-            obtenerCursos();
+        obtenerCursos();
 
 
 
@@ -157,7 +151,7 @@ public class fragCursos extends Fragment implements cursosView {
                 while (it.hasNext()){
 
                     DatabaseReference CursosRef = database.getReference().child("cursillos").child(it.next().getValue().toString());
-                    //System.out.println(it.next().getValue().toString());
+
 
 
                     CursosRef.addValueEventListener(new ValueEventListener() {

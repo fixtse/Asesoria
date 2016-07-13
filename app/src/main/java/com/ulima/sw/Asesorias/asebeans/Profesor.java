@@ -11,26 +11,19 @@ import java.util.List;
 public class Profesor {
 
     private String nombre;
+    private Long id;
     //private String apellidos;
-    private List<Long> idMensaje;
+
 
     private int idCursos;
 
     public Profesor() {
     }
 
-    public Profesor(String nombre, List<Long> idMensaje, int idCursos) {
+    public Profesor(String nombre, int idCursos) {
         this.nombre = nombre;
-        this.idMensaje = idMensaje;
+
         this.idCursos = idCursos;
-    }
-
-    public List<Long> getIdMensaje() {
-        return idMensaje;
-    }
-
-    public void setIdMensaje(List<Long> idMensaje) {
-        this.idMensaje = idMensaje;
     }
 
     public String getNombre() {
@@ -47,5 +40,13 @@ public class Profesor {
 
     public void setIdCursos(int idCursos) {
         this.idCursos = idCursos;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

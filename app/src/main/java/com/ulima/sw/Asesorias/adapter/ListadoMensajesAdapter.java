@@ -61,7 +61,7 @@ public class ListadoMensajesAdapter extends BaseAdapter {
         if (tipo.equals("1")){
             tviCurso.setText(Html.fromHtml("<b>Profesor:</b> " +mensaje.getUsuarioPROF().toUpperCase() + " <b>("+mensaje.getCurso()+")</b>"));
         }else{
-            tviCurso.setText(Html.fromHtml("<b>Alumno:</b> " +mensaje.getUsuarioAL() + " <b>("+mensaje.getCurso()+")</b>"));
+            tviCurso.setText(Html.fromHtml("<b>Alumno:</b> " +mensaje.getUsuarioAL().toUpperCase() + " <b>("+mensaje.getCurso()+")</b>"));
         }
 
 
@@ -73,7 +73,7 @@ public class ListadoMensajesAdapter extends BaseAdapter {
             posC = mensaje.getContenidos().size()-1;
         }
 
-        tviCont.setText(Html.fromHtml("<b>Mensaje:</b> "+mensaje.getContenidos().get(posC)));
+        tviCont.setText(Html.fromHtml(mensaje.getContenidos().get(posC)));
 
 
         return convertView;
