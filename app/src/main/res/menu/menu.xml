@@ -11,6 +11,6 @@
             android:id="@+id/men_op2"
             android:title="Estrella"
             app:showAsAction="always"
-            android:icon="@android:drawable/star_big_off"/>
+            android:icon="@android:drawable/star_big_on"/>
     </group>
 </menu>

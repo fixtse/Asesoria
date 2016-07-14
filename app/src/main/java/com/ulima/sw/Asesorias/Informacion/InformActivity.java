@@ -200,32 +200,24 @@ public class InformActivity extends AppCompatActivity implements InformView {
         HashMap<String, String> user = ses.getUserDetails();
 
         String tipo = user.get(ses.KEY_TIPO);
-        if (tipo.equals("1")){
-            /*if (curso.getAsesorias().get(pos).getAlumnos() != null){
-                if (curso.getAsesorias().get(pos).getAlumnos().contains(ses.getID().toString())) {
-                    if (menu.findItem(R.id.men_op1) != null){
-                        menu.findItem(R.id.men_op1).setIcon(android.R.drawable.checkbox_on_background);
+        if (tipo != null){
+            if (!tipo.equals("1")){
+
+                fab = (FloatingActionButton) findViewById(R.id.fab);
+                fab.hide();
+                List <String> alms = curso.getAsesorias().get(pos).getAlumnos();
+                if (alms != null){
+                    if (alms.contains("")){
+                        alms.remove("");
                     }
-
+                    ((TextView)findViewById(R.id.CantAlm)).setText("Alumnos Siguiendo: " +alms.size());
+                }else{
+                    ((TextView)findViewById(R.id.CantAlm)).setText("Alumnos Siguiendo: "+ 0);
                 }
 
-            }*/
-
-
-        }else{
-            fab = (FloatingActionButton) findViewById(R.id.fab);
-            fab.hide();
-            List <String> alms = curso.getAsesorias().get(pos).getAlumnos();
-            if (alms != null){
-                if (alms.contains("")){
-                    alms.remove("");
-                }
-                ((TextView)findViewById(R.id.CantAlm)).setText("Alumnos Siguiendo: " +alms.size());
-            }else{
-                ((TextView)findViewById(R.id.CantAlm)).setText("Alumnos Siguiendo: "+ 0);
             }
-
         }
+
 
 
 
@@ -246,16 +238,19 @@ public class InformActivity extends AppCompatActivity implements InformView {
         HashMap<String, String> user = ses.getUserDetails();
 
         String tipo = user.get(ses.KEY_TIPO);
-        if (tipo.equals("1")) {
-            if (idmen == 1) {
+        if (tipo != null){
+            if (tipo.equals("1")) {
+                if (idmen == 1) {
 
                     if (menu.findItem(R.id.men_op1) != null) {
                         menu.findItem(R.id.men_op1).setIcon(android.R.drawable.checkbox_on_background);
                     }
 
 
+                }
             }
         }
+
       /*  MenuItem mi = (MenuItem) menu.findItem(R.id.GPS);
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -288,15 +283,24 @@ public class InformActivity extends AppCompatActivity implements InformView {
                         if (alm.contains("")){
                             alm.remove("");
                         }
+                        menu.findItem(R.id.men_op1).setIcon(android.R.drawable.checkbox_on_background);
+                        Toast.makeText(this, "Siguiendo Asesoria", Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        alm.remove(ses.getID().toString());
+                        curso.getAsesorias().get(pos).setAlumnos(alm);
+                        CursosRef.setValue(curso);
+                        menu.findItem(R.id.men_op1).setIcon(android.R.drawable.checkbox_off_background);
+                        Toast.makeText(this, "Dejaste de seguir la Asesoria", Toast.LENGTH_SHORT).show();
                     }
                 }else{
                     List<String> alm = new ArrayList<>();
                     alm.add(ses.getID().toString());
                     curso.getAsesorias().get(pos).setAlumnos(alm);
                     CursosRef.setValue(curso);
+                    menu.findItem(R.id.men_op1).setIcon(android.R.drawable.checkbox_on_background);
+                    Toast.makeText(this, "Siguiendo Asesoria", Toast.LENGTH_SHORT).show();
                 }
-                menu.findItem(R.id.men_op1).setIcon(android.R.drawable.checkbox_on_background);
-                Toast.makeText(this, "Siguiendo Asesoria", Toast.LENGTH_SHORT).show();
 
                 break;
             case R.id.men_op2:
