@@ -1,10 +1,14 @@
 package com.ulima.sw.Asesorias.fragments;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -136,6 +140,7 @@ public class fragMensajes extends Fragment implements MensajesView {
                 }
                 if (Mensajes != null) {
                     mostrarMensajes(Mensajes);
+
                 }
 
             }
@@ -151,6 +156,35 @@ public class fragMensajes extends Fragment implements MensajesView {
 
 
 
+    }
+
+    public void notification1(int id, int iconId, String titulo, String contenido) {
+
+        Intent intent = new Intent(getActivity(), NewMensajeActivity.class);
+        PendingIntent pIntent = PendingIntent.getActivity(getActivity(), (int) System.currentTimeMillis(), intent, 0);
+
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(getContext())
+                        .setSmallIcon(iconId)
+                        .setLargeIcon(BitmapFactory.decodeResource(
+                                getResources(),
+                                R.drawable.ulima
+                                )
+                        )
+                        .setContentTitle(titulo)
+                        .setContentIntent(pIntent)
+                        .setContentText(contenido)
+                        .setAutoCancel(true)
+                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                        .setColor(getResources().getColor(R.color.colorAccent));
+
+
+        NotificationManager notifyMgr = (NotificationManager)
+                getActivity().getSystemService(getContext().NOTIFICATION_SERVICE);
+
+
+        // Construir la notificación y emitirla
+        notifyMgr.notify(id, builder.build());
     }
 
     @Override

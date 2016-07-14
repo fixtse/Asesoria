@@ -7,7 +7,10 @@ import android.widget.Toast;
 
 import com.ulima.sw.Asesorias.Login.LoginActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by W3222 on 06/07/2016.
@@ -56,6 +59,7 @@ public class Sesion {
         editor.putString(KEY_TIPO, tipo);
         editor.putLong(KEY_ID, id);
         editor.putLong(KEY_estado, -1L);
+
 
 
         // commit changes

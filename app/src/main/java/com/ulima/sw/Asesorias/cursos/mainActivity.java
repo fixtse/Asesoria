@@ -22,6 +22,8 @@ import com.ulima.sw.Asesorias.fragments.fragMensajes;
 
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class mainActivity extends AppCompatActivity {
 
 
@@ -30,7 +32,7 @@ public class mainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private View headerView;
     private TextView txtUsuario;
-    private ImageView imgUsuario;
+    private CircleImageView imgUsuario;
     private ActionBar supportActionBar;
 
     @Override
@@ -47,7 +49,7 @@ public class mainActivity extends AppCompatActivity {
 
         headerView = navigationView.inflateHeaderView(R.layout.nav_header);
         txtUsuario =  (TextView)headerView.findViewById(R.id.navNom);
-        imgUsuario = (ImageView)headerView.findViewById(R.id.navImg) ;
+        imgUsuario = (CircleImageView)headerView.findViewById(R.id.navImg) ;
 
         ses = new Sesion(getApplicationContext());
         ses.checkLogin();

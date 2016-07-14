@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
-    android:background="#376ba6"
+    android:layout_height="170dp"
+    android:background="@drawable/textura"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="7dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -13,10 +13,14 @@
         android:id="@+id/navNom"
         android:layout_gravity="center"
         android:textColor="#FFFFFF"/>
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
         android:src="@drawable/diego"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/Titulos2"
         android:id="@+id/navImg"
         android:layout_weight="6"/>
 

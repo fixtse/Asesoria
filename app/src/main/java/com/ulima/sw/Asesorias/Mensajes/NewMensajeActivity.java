@@ -1,19 +1,22 @@
 package com.ulima.sw.Asesorias.Mensajes;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.NavUtils;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -95,6 +98,7 @@ public class NewMensajeActivity extends AppCompatActivity {
                 {
                     Mensaje mensaje = ds.getValue(Mensaje.class);
                     mostrarContenido(mensaje);
+                    //notification1(2, R.drawable.mensj, "Nuevo Mensaje", mensaje.getContenidos().get(mensaje.getContenidos().size()-1)));
 
                 }
             }
@@ -168,6 +172,35 @@ public class NewMensajeActivity extends AppCompatActivity {
 
     }
 
+    public void notification1(int id, int iconId, String titulo, String contenido) {
+
+        //Intent intent = new Intent(this, NotificationReceiverActivity.class);
+        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intentPasado, 0);
+
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(iconId)
+                        .setLargeIcon(BitmapFactory.decodeResource(
+                                getResources(),
+                                R.drawable.ulima
+                                )
+                        )
+                        .setContentTitle(titulo)
+                        .setContentIntent(pIntent)
+                        .setContentText(contenido)
+                        .setAutoCancel(true)
+                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                        .setColor(getResources().getColor(R.color.colorAccent));
+
+
+        NotificationManager notifyMgr = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
+
+
+        // Construir la notificación y emitirla
+        notifyMgr.notify(id, builder.build());
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
@@ -178,6 +211,7 @@ public class NewMensajeActivity extends AppCompatActivity {
                 } else {
                     NavUtils.navigateUpFromSameTask(this);
                 }
+
                 return true;
         }
         return super.onOptionsItemSelected(item);

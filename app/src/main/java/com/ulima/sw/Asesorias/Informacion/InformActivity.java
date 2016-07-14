@@ -44,7 +44,6 @@ public class InformActivity extends AppCompatActivity implements InformView {
     private ImageView imgE;
 
     private TextView txtEstado,txtLugar,txtHora,txtCal;
-    private FirebaseHelper helper;
     private ProgressDialog dialog;
     private Curso curso;
     private int pos;
