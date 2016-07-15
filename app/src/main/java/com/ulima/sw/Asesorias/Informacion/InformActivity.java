@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.NotificationCompat;
@@ -23,13 +24,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.tbouron.shakedetector.library.ShakeDetector;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.melnykov.fab.FloatingActionButton;
-import com.ulima.sw.Asesorias.Mensajes.FirebaseHelper;
+
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.asebeans.Curso;
 import com.ulima.sw.Asesorias.asebeans.Mensaje;
@@ -40,7 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class InformActivity extends AppCompatActivity implements InformView {
+public class InformActivity extends AppCompatActivity implements InformView{
     private ImageView imgE;
 
     private TextView txtEstado,txtLugar,txtHora,txtCal;
@@ -89,6 +91,13 @@ public class InformActivity extends AppCompatActivity implements InformView {
         dialog.show();
 
         obtenerCurso(id);
+
+
+
+
+
+
+
 
 
 
@@ -438,4 +447,6 @@ public class InformActivity extends AppCompatActivity implements InformView {
 
 
     }
+
+
 }

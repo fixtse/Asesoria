@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import android.widget.ExpandableListView;
 
+import com.github.tbouron.shakedetector.library.ShakeDetector;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +37,7 @@ import java.util.List;
 /**
  * Created by fixt on 08/07/16.
  */
-public class fragCursos extends Fragment implements cursosView {
+public class fragCursos extends Fragment implements cursosView{
 
     private ListadoExpansibleCursosAdapter listAdapter;
     private ExpandableListView expListView;
@@ -47,6 +49,7 @@ public class fragCursos extends Fragment implements cursosView {
     private FirebaseDatabase database;
     private String usuarioBD;
     private Long L;
+    private SwipeRefreshLayout swipeLayout;
 
     public fragCursos() {
         // Required empty public constructor
@@ -105,7 +108,23 @@ public class fragCursos extends Fragment implements cursosView {
 
 
         lPresenter.obtenerCursos();*/
+
         obtenerCursos();
+
+     /*   ShakeDetector.create(getContext(), new ShakeDetector.OnShakeListener() {
+            @Override
+            public void OnShake() {
+                if (Tcursos != null){
+
+                    dialog.show();
+                    obtenerCursos();
+
+                }
+
+            }
+        });*/
+
+
 
 
 
@@ -266,6 +285,24 @@ public class fragCursos extends Fragment implements cursosView {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        //ShakeDetector.start();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        //ShakeDetector.stop();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //ShakeDetector.destroy();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
@@ -287,9 +324,11 @@ public class fragCursos extends Fragment implements cursosView {
         // setting list adapter
         expListView.setAdapter(listAdapter);
 
+
         dialog.dismiss();
 
     }
+
 
 
 }
