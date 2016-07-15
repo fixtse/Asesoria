@@ -18,6 +18,7 @@ public class Mensaje implements Serializable{
     private long id;
     private String usuarioAL, usuarioPROF;
     private long idAlumno;
+    private long vib;
 
     public Mensaje() {
     }
@@ -30,6 +31,7 @@ public class Mensaje implements Serializable{
         this.usuarioAL = usuarioAL;
         this.usuarioPROF = usuarioPROF;
         this.idAlumno = idAlumno;
+        vib = 0l;
     }
 
     public List<String> getContenidos() {
@@ -86,5 +88,13 @@ public class Mensaje implements Serializable{
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getVib() {
+        return vib;
+    }
+
+    public void setVib(long vib) {
+        this.vib = vib;
     }
 }

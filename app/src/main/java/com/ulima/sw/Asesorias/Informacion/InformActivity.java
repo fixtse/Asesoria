@@ -66,6 +66,7 @@ public class InformActivity extends AppCompatActivity implements InformView{
     private int idmen;
     private TextView mText;
     private ImageView imageView;
+    private int precantAlm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +84,7 @@ public class InformActivity extends AppCompatActivity implements InformView{
         pos = intentPasado.getIntExtra("child",0);
         idmen = intentPasado.getIntExtra("siguiendo",0);
 
-
+        precantAlm = 0;
 
         setContentView(R.layout.activity_informacion);
 
@@ -224,15 +225,16 @@ public class InformActivity extends AppCompatActivity implements InformView{
                 alms.remove("");
             }
             mText.setText(String.valueOf(alms.size()));
-            redText(findViewById(R.id.CantAlm));
+            if (precantAlm != alms.size()){
+                redText(findViewById(R.id.CantAlm));
+                precantAlm=alms.size();
+            }
+
         }else{
             mText.setText("0");
         }
-
-
         txtEstado.setText(curso.getAsesorias().get(pos).getEstado().getEstado());
-
-       txtLugar.setText("Salón: "+curso.getAsesorias().get(pos).getLugar());
+        txtLugar.setText("Salón: "+curso.getAsesorias().get(pos).getLugar());
         txtHora.setText("Hora: " +curso.getAsesorias().get(pos).getHora());
         txtCal.setText("Calificación: "+curso.getAsesorias().get(pos).getCalific());
 
@@ -240,8 +242,9 @@ public class InformActivity extends AppCompatActivity implements InformView{
 
     }
 
+    //Mostrar animación nuevos alumnos
     public void redText(View view){
-        mText.setTextColor(0xff74071c);
+        mText.setTextColor(0xff00ffff);
 
         mSmallBang.bang(view,50,new SmallBangListener() {
             @Override
@@ -342,6 +345,7 @@ public class InformActivity extends AppCompatActivity implements InformView{
                 curso.getAsesorias().get(pos).getEstado().setId(0);
                 curso.getAsesorias().get(pos).getEstado().setEstado("No Disponible");
                 curso.getAsesorias().get(pos).setCalific(0);
+                precantAlm = 0;
                 CursosRef.setValue(curso);
                 break;
 

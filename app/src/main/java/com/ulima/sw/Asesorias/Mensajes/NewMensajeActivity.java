@@ -11,7 +11,6 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,6 +47,8 @@ public class NewMensajeActivity extends AppCompatActivity {
     private EditText Econtenido;
     private Long id;
     private Vibrator v;
+    private DatabaseReference vibref;
+    private int sender;
 
 
 
@@ -82,7 +83,7 @@ public class NewMensajeActivity extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
-
+        sender = 0;
         obtenerContenido(id);
 
         v = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
@@ -92,8 +93,13 @@ public class NewMensajeActivity extends AppCompatActivity {
         ShakeDetector.create(getApplicationContext(), new ShakeDetector.OnShakeListener() {
             @Override
             public void OnShake() {
+
                 Toast.makeText(getApplicationContext(), "Zumbidos are back", Toast.LENGTH_SHORT).show();
-                v.vibrate(500);
+                sender = 1;
+                if (vibref != null){
+                    vibref.setValue(1);
+
+                }
 
             }
         });
@@ -136,7 +142,16 @@ public class NewMensajeActivity extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren())
                 {
                     Mensaje mensaje = ds.getValue(Mensaje.class);
+                    vibref = database.getReference().child("mensajes").child(ds.getKey()).child("vib");
                     mostrarContenido(mensaje);
+                    if(mensaje.getVib()==1){
+                       // if(sender ==0){
+                            v.vibrate(500);
+                            vibref.setValue(0);
+                       // }
+                       // sender = 1;
+
+                    }
                     //notification1(2, R.drawable.mensj, "Nuevo Mensaje", mensaje.getContenidos().get(mensaje.getContenidos().size()-1)));
 
                 }
@@ -224,42 +239,13 @@ public class NewMensajeActivity extends AppCompatActivity {
 
             }
         });
-        /*contenidoref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Mensaje> mensajes = new ArrayList<Mensaje>();
-                for (DataSnapshot ds : dataSnapshot.getChildren())
-                {
-                    Mensaje me = ds.getValue(Mensaje.class);
-                    mensajes.add(me);
-
-
-                }
-
-                String contenido = "<b>"+name.toUpperCase()+":</b> "+Econtenido.getText();
-
-                List<String> conte = mensajes.get(id.intValue()).getContenidos();
-                conte.add(contenido);
-                mensajes.get(id.intValue()).setContenidos(conte);
-                contenidoref.setValue(mensajes);
-                //contenidoref.updateChildren()
-                Econtenido.setText("");
-                //lcontenidos.smoothScrollToPosition(adapter.getCount() -1);
-                scrollMyListViewToBottom();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
 
 
     }
 
     public void notification1(int id, int iconId, String titulo, String contenido) {
 
-        //Intent intent = new Intent(this, NotificationReceiverActivity.class);
+
         PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intentPasado, 0);
 
         NotificationCompat.Builder builder =
