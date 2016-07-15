@@ -5,6 +5,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -20,12 +22,14 @@ public class MensajeAdapter extends BaseAdapter {
     private Context _context;
     private List<String> lcontenido;
     private LayoutInflater mInflater;
+    boolean[] animationStates;
 
 
     public MensajeAdapter(Context context, List<String> lcontenido) {
         this.lcontenido = lcontenido;
         this._context = context;
         mInflater = LayoutInflater.from(context);
+        animationStates = new boolean[lcontenido.size()];
 
     }
 
@@ -47,9 +51,11 @@ public class MensajeAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+
         if(convertView==null)
         {
             convertView= LayoutInflater.from(_context).inflate(R.layout.contenido_itm,parent,false);
+
         }
         TextView nameTxt= (TextView) convertView.findViewById(R.id.txtCont);
         final String s= (String) this.getItem(position);
@@ -57,4 +63,8 @@ public class MensajeAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+
+
+
 }

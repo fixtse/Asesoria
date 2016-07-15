@@ -202,6 +202,7 @@ public class fragMensajes extends Fragment implements MensajesView {
 
                     Intent intent = new Intent(getActivity(),NewMensajeActivity.class);
                     intent.putExtra("id",Mensajes.get(i).getId());
+                    //intent.putExtra("curso",Mensajes.get(i).getCurso());
 
 
 

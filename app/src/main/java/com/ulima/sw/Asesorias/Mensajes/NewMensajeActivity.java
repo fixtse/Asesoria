@@ -140,8 +140,55 @@ public class NewMensajeActivity extends AppCompatActivity {
         // name
         final String name = user.get(ses.KEY_NAME);
 
-        final DatabaseReference contenidoref = database.getReference().child("mensajes");
-        contenidoref.addListenerForSingleValueEvent(new ValueEventListener() {
+        final DatabaseReference mensajesref = database.getReference().child("mensajes");
+        mensajesref.orderByChild("id").equalTo(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (final DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    final DatabaseReference contenidoref = database.getReference().child("mensajes").child(ds.getKey()).child("contenidos");
+                    contenidoref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            //Mensaje me = dataSnapshot.getValue(Mensaje.class);
+                            List<String> conte = new ArrayList<String>();
+                            for (DataSnapshot ds : dataSnapshot.getChildren())
+                            {
+                                String me = ds.getValue(String.class);
+                                conte.add(me);
+
+
+                            }
+
+                            String contenido = "<b>"+name.toUpperCase()+":</b> "+Econtenido.getText();
+
+                            conte.add(contenido);
+
+                            contenidoref.setValue(conte);
+                            //contenidoref.updateChildren()
+                            Econtenido.setText("");
+                            //lcontenidos.smoothScrollToPosition(adapter.getCount() -1);
+                            scrollMyListViewToBottom();
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        /*contenidoref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Mensaje> mensajes = new ArrayList<Mensaje>();
@@ -149,6 +196,7 @@ public class NewMensajeActivity extends AppCompatActivity {
                 {
                     Mensaje me = ds.getValue(Mensaje.class);
                     mensajes.add(me);
+
 
                 }
 
@@ -158,6 +206,7 @@ public class NewMensajeActivity extends AppCompatActivity {
                 conte.add(contenido);
                 mensajes.get(id.intValue()).setContenidos(conte);
                 contenidoref.setValue(mensajes);
+                //contenidoref.updateChildren()
                 Econtenido.setText("");
                 //lcontenidos.smoothScrollToPosition(adapter.getCount() -1);
                 scrollMyListViewToBottom();
@@ -167,7 +216,7 @@ public class NewMensajeActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
 
     }
