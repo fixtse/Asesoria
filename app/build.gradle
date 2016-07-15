@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.ulima.sw.asesorias"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -22,17 +22,18 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:support-v4:23.3.0'
-    compile 'com.android.support:design:23.3.0'
+    compile "com.android.support:support-v4:$support_version"
+    compile "com.android.support:design:$support_version"
     compile "com.android.support:appcompat-v7:$support_version"
+    compile "com.android.support:recyclerview-v7:$support_version"
+
     compile "com.google.firebase:firebase-core:$firebase_version"
     compile "com.google.firebase:firebase-database:$firebase_version"
+
     compile 'com.melnykov:floatingactionbutton:1.3.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.tbouron.shakedetector:library:1.0.0@aar'
-    compile "com.android.support:recyclerview-v7:$support_version"
-
-
+    compile 'hanks.xyz:smallbang-library:0.1.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

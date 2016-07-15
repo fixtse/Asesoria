@@ -3,6 +3,7 @@
     package="com.ulima.sw.Asesorias">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"

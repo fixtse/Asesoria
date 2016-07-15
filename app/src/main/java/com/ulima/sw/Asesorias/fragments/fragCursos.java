@@ -95,34 +95,15 @@ public class fragCursos extends Fragment implements cursosView{
 
 
 
-            dialog = new ProgressDialog(getContext());
-            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setMessage("Cargando... Por favor espere");
-            dialog.setIndeterminate(true);
-            dialog.setCanceledOnTouchOutside(false);
-            dialog.show();
-
-
-
-        /*setPresenter(new alumnoCursosPresenterImp(this));
-
-
-        lPresenter.obtenerCursos();*/
+        dialog = new ProgressDialog(getContext());
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage("Cargando... Por favor espere");
+        dialog.setIndeterminate(true);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
 
         obtenerCursos();
 
-     /*   ShakeDetector.create(getContext(), new ShakeDetector.OnShakeListener() {
-            @Override
-            public void OnShake() {
-                if (Tcursos != null){
-
-                    dialog.show();
-                    obtenerCursos();
-
-                }
-
-            }
-        });*/
 
 
 
@@ -163,8 +144,6 @@ public class fragCursos extends Fragment implements cursosView{
                     }
 
                 }
-
-
                 getActivity().startActivity(intent);
                 return false;
             }
@@ -217,89 +196,6 @@ public class fragCursos extends Fragment implements cursosView{
 
             }
         });
-
-        /*loginReference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-
-                final Long Cont =dataSnapshot.getChildrenCount();
-                Iterator<DataSnapshot> it = dataSnapshot.getChildren().iterator();
-
-                while (it.hasNext()){
-
-                    DatabaseReference CursosRef = database.getReference().child("cursillos").child(it.next().getValue().toString());
-
-
-
-                    CursosRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            Curso cur=  dataSnapshot.getValue(Curso.class);
-                            Tcursos.add(cur);
-
-                            if (Cont==Tcursos.size()){
-                                mostrarCursos(Tcursos);
-                            }
-
-
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-                }
-
-
-
-
-           }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
-
-
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        //ShakeDetector.start();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        //ShakeDetector.stop();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        //ShakeDetector.destroy();
     }
 
     @Override

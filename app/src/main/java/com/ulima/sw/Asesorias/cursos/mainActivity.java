@@ -8,16 +8,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.asebeans.Sesion;
 import com.ulima.sw.Asesorias.fragments.fragBusqueda;
 import com.ulima.sw.Asesorias.fragments.fragCursos;
 import com.ulima.sw.Asesorias.fragments.fragMensajes;
+import android.support.v7.app.ActionBarDrawerToggle;
 
 
 import java.util.HashMap;
@@ -34,6 +37,8 @@ public class mainActivity extends AppCompatActivity {
     private TextView txtUsuario;
     private CircleImageView imgUsuario;
     private ActionBar supportActionBar;
+
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,13 +99,30 @@ public class mainActivity extends AppCompatActivity {
         }
 
 
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        //setSupportActionBar(mToolbar);
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,  drawerLayout, mToolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        );
+
+        drawerLayout.addDrawerListener(mDrawerToggle);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        mDrawerToggle.syncState();
 
 
-        supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            supportActionBar.setHomeAsUpIndicator(R.drawable.toright);
+
+      /* supportActionBar = getSupportActionBar();
+       if (supportActionBar != null) {
+            drawable = new DrawerArrowDrawable(getApplicationContext());
+            supportActionBar.setHomeAsUpIndicator(drawable);
             supportActionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        }*/
+
+
 
 
 
@@ -157,8 +179,11 @@ public class mainActivity extends AppCompatActivity {
 
             case android.R.id.home:
                 if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+
                     drawerLayout.closeDrawer(GravityCompat.START);
                 }else{
+
+
                     drawerLayout.openDrawer(GravityCompat.START);
                 }
 

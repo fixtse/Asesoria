@@ -3,8 +3,10 @@ package com.ulima.sw.Asesorias.Mensajes;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Vibrator;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -15,8 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
+import com.github.tbouron.shakedetector.library.ShakeDetector;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +47,7 @@ public class NewMensajeActivity extends AppCompatActivity {
     private ListView lcontenidos;
     private EditText Econtenido;
     private Long id;
+    private Vibrator v;
 
 
 
@@ -80,10 +85,44 @@ public class NewMensajeActivity extends AppCompatActivity {
 
         obtenerContenido(id);
 
+        v = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+
+        obtenerContenido(id);
+
+        ShakeDetector.create(getApplicationContext(), new ShakeDetector.OnShakeListener() {
+            @Override
+            public void OnShake() {
+                Toast.makeText(getApplicationContext(), "Zumbidos are back", Toast.LENGTH_SHORT).show();
+                v.vibrate(500);
+
+            }
+        });
+
+        ShakeDetector.updateConfiguration(3.24f,2);
+
 
 
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ShakeDetector.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ShakeDetector.stop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ShakeDetector.destroy();
+    }
+
 
     public void obtenerContenido(Long id){
 
@@ -109,11 +148,8 @@ public class NewMensajeActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
     }
+
 
     private void scrollMyListViewToBottom() {
         lcontenidos.post(new Runnable() {

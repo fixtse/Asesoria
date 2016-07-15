@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.hardware.SensorManager;
@@ -13,7 +14,9 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,6 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +45,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import xyz.hanks.library.SmallBang;
+import xyz.hanks.library.SmallBangListener;
+
 
 public class InformActivity extends AppCompatActivity implements InformView{
     private ImageView imgE;
@@ -55,7 +62,10 @@ public class InformActivity extends AppCompatActivity implements InformView{
     private FirebaseDatabase database;
     private DatabaseReference CursosRef;
     private Menu menu;
+    private SmallBang mSmallBang;
     private int idmen;
+    private TextView mText;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +79,7 @@ public class InformActivity extends AppCompatActivity implements InformView{
         intentPasado = getIntent();
         int id = intentPasado.getIntExtra("curso",0);
 
-        //curso = (Curso)intentPasado.getSerializableExtra("curso");
+
         pos = intentPasado.getIntExtra("child",0);
         idmen = intentPasado.getIntExtra("siguiendo",0);
 
@@ -80,6 +90,8 @@ public class InformActivity extends AppCompatActivity implements InformView{
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mSmallBang = SmallBang.attach2Window(this);
 
 
 
@@ -92,18 +104,6 @@ public class InformActivity extends AppCompatActivity implements InformView{
 
         obtenerCurso(id);
 
-
-
-
-
-
-
-
-
-
-        //setPresenter(new InformPresenterImp(this));
-
-        //Ipresenter.obtenerEquipo(intentPasado.getIntExtra("id",0));
     }
 
     public void onFav(View view){
@@ -213,22 +213,21 @@ public class InformActivity extends AppCompatActivity implements InformView{
 
                 fab = (FloatingActionButton) findViewById(R.id.fab);
                 fab.hide();
-                List <String> alms = curso.getAsesorias().get(pos).getAlumnos();
-                if (alms != null){
-                    if (alms.contains("")){
-                        alms.remove("");
-                    }
-                    ((TextView)findViewById(R.id.CantAlm)).setText("Alumnos Siguiendo: " +alms.size());
-                }else{
-                    ((TextView)findViewById(R.id.CantAlm)).setText("Alumnos Siguiendo: "+ 0);
-                }
 
             }
         }
 
-
-
-
+        List <String> alms = curso.getAsesorias().get(pos).getAlumnos();
+        mText = (TextView)findViewById(R.id.CantAlm);
+        if (alms != null){
+            if (alms.contains("")){
+                alms.remove("");
+            }
+            mText.setText(String.valueOf(alms.size()));
+            redText(findViewById(R.id.CantAlm));
+        }else{
+            mText.setText("0");
+        }
 
 
         txtEstado.setText(curso.getAsesorias().get(pos).getEstado().getEstado());
@@ -241,6 +240,21 @@ public class InformActivity extends AppCompatActivity implements InformView{
 
     }
 
+    public void redText(View view){
+        mText.setTextColor(0xff74071c);
+
+        mSmallBang.bang(view,50,new SmallBangListener() {
+            @Override
+            public void onAnimationStart() {
+            }
+
+            @Override
+            public void onAnimationEnd() {
+
+            }
+        });
+    }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         HashMap<String, String> user = ses.getUserDetails();
@@ -249,22 +263,13 @@ public class InformActivity extends AppCompatActivity implements InformView{
         if (tipo != null){
             if (tipo.equals("1")) {
                 if (idmen == 1) {
-
-                    if (menu.findItem(R.id.men_op1) != null) {
-                        menu.findItem(R.id.men_op1).setIcon(android.R.drawable.checkbox_on_background);
+                    MenuItem men = menu.findItem(R.id.men_op1);
+                    if ( men != null) {
+                        men.setIcon(android.R.drawable.checkbox_on_background);
                     }
-
-
                 }
             }
         }
-
-      /*  MenuItem mi = (MenuItem) menu.findItem(R.id.GPS);
-
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-     do your changes with its icon
-        item.setIcon(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)? R.drawable.gps_off : R.drawable.gps);*/
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -314,7 +319,7 @@ public class InformActivity extends AppCompatActivity implements InformView{
             case R.id.men_op2:
                 Float a = curso.getAsesorias().get(pos).getCalific();
                 a = a +1;
-                a= a/curso.getAsesorias().get(pos).getAlumnos().size();
+                //a= a/curso.getAsesorias().get(pos).getAlumnos().size();
                 curso.getAsesorias().get(pos).setCalific(a);
                 CursosRef.setValue(curso);
                 break;
@@ -355,6 +360,21 @@ public class InformActivity extends AppCompatActivity implements InformView{
         if (tipo != null){
             if (tipo.equals("1")){
                 getMenuInflater().inflate(R.menu.menu, menu);
+                MenuItem item = menu.getItem(0);
+                imageView = new ImageView(getApplicationContext());
+                imageView.setImageResource(R.drawable.heart_off);
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Float a = curso.getAsesorias().get(pos).getCalific();
+                        a = a +1;
+                        //a= a/curso.getAsesorias().get(pos).getAlumnos().size();
+                        curso.getAsesorias().get(pos).setCalific(a);
+                        CursosRef.setValue(curso);
+                        like(v);
+                    }
+                });
+                item.setActionView(imageView);
             }else{
                 getMenuInflater().inflate(R.menu.menu2, menu);
             }
@@ -365,6 +385,21 @@ public class InformActivity extends AppCompatActivity implements InformView{
 
         this.menu = menu;
         return true;
+    }
+
+    public void like(View view){
+        imageView.setImageResource(R.drawable.heart_on);
+        mSmallBang.bang(view, 50, new SmallBangListener() {
+            @Override
+            public void onAnimationStart() {
+
+            }
+
+            @Override
+            public void onAnimationEnd() {
+
+            }
+        });
     }
 
 
