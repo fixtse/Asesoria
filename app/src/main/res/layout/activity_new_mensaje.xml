@@ -4,8 +4,14 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/textura"
+    android:fitsSystemWindows="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
@@ -16,7 +22,7 @@
 
 
 
-        <ListView
+        <com.github.ksoichiro.android.observablescrollview.ObservableListView
             android:layout_width="match_parent"
             android:id="@+id/lstContenido"
             android:layout_height="0dp"
@@ -28,7 +34,7 @@
             android:transcriptMode="alwaysScroll"
             android:stackFromBottom="true"
             android:divider="@drawable/dividerlst"
-            android:dividerHeight="0.7dp"></ListView>
+            android:dividerHeight="0.7dp"></com.github.ksoichiro.android.observablescrollview.ObservableListView>
 
 
         <LinearLayout
@@ -51,8 +57,8 @@
                 fab:fab_type="mini"
                 fab:fab_shadow="false"
                 android:src="@android:drawable/ic_menu_send"
-                fab:fab_colorNormal="@color/colorPrimary"
-                fab:fab_colorPressed="@color/colorAccent"
+                fab:fab_colorNormal="@color/primary"
+                fab:fab_colorPressed="@color/accent"
                 fab:fab_colorRipple="@color/material_blue_500"
                 android:onClick="onMensaje"
                 />

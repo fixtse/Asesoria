@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    android:layout_width="match_parent"
+<FrameLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@drawable/textura"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:fitsSystemWindows="true"
 
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 <LinearLayout
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="25dp"
-    android:background="@drawable/shadow" >
+    android:layout_marginTop="75dp"
+    android:layout_marginBottom="25dp"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
+    android:background="@drawable/shadow"
+    >
 
 
     <LinearLayout
@@ -101,8 +110,8 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="40dp"
         android:src="@android:drawable/ic_menu_add"
-        fab:fab_colorNormal="@color/colorPrimary"
-        fab:fab_colorPressed="@color/colorAccent"
+        fab:fab_colorNormal="@color/primary"
+        fab:fab_colorPressed="@color/accent"
         fab:fab_colorRipple="@color/material_blue_500"
         android:onClick="onFav"
         />

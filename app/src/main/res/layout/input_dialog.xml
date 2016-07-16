@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="Enviar"
             android:clickable="true"
-            android:background="@color/colorAccent"
+            android:background="@color/accent"
             android:layout_marginBottom="20dp"
             android:textColor="@android:color/white"/>
 

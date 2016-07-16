@@ -176,7 +176,7 @@ public class fragMensajes extends Fragment implements MensajesView {
                         .setContentText(contenido)
                         .setAutoCancel(true)
                         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                        .setColor(getResources().getColor(R.color.colorAccent));
+                        .setColor(getResources().getColor(R.color.accent));
 
 
         NotificationManager notifyMgr = (NotificationManager)

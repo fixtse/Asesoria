@@ -6,25 +6,31 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Vibrator;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.github.ksoichiro.android.observablescrollview.ObservableListView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.tbouron.shakedetector.library.ShakeDetector;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.adapter.MensajeAdapter;
 import com.ulima.sw.Asesorias.asebeans.Mensaje;
@@ -34,7 +40,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class NewMensajeActivity extends AppCompatActivity {
+public class NewMensajeActivity extends AppCompatActivity implements ObservableScrollViewCallbacks {
 
 
     private MensajeAdapter adapter;
@@ -43,12 +49,13 @@ public class NewMensajeActivity extends AppCompatActivity {
     private Mensaje mensaje;
     private ProgressDialog dialog;
     private FirebaseDatabase database;
-    private ListView lcontenidos;
+    private ObservableListView lcontenidos;
     private EditText Econtenido;
     private Long id;
     private Vibrator v;
     private DatabaseReference vibref;
     private int sender;
+    private Toolbar toolbar;
 
 
 
@@ -68,7 +75,12 @@ public class NewMensajeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_new_mensaje);
 
-        lcontenidos = (ListView) findViewById(R.id.lstContenido);
+        // Set a Toolbar to replace the ActionBar.
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        lcontenidos = (ObservableListView) findViewById(R.id.lstContenido);
+        lcontenidos.setScrollViewCallbacks(this);
         Econtenido = (EditText)findViewById(R.id.ediMensaje);
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -105,6 +117,11 @@ public class NewMensajeActivity extends AppCompatActivity {
         });
 
         ShakeDetector.updateConfiguration(3.24f,2);
+
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setNavigationBarTintEnabled(true);
+        tintManager.setTintColor(Color.parseColor("#273e57"));
 
 
 
@@ -172,6 +189,7 @@ public class NewMensajeActivity extends AppCompatActivity {
             public void run() {
                 // Select the last row so it will scroll into view...
                 lcontenidos.setSelection(adapter.getCount() - 1);
+
             }
         });
     }
@@ -261,7 +279,7 @@ public class NewMensajeActivity extends AppCompatActivity {
                         .setContentText(contenido)
                         .setAutoCancel(true)
                         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                        .setColor(getResources().getColor(R.color.colorAccent));
+                        .setColor(getResources().getColor(R.color.accent));
 
 
         NotificationManager notifyMgr = (NotificationManager)
@@ -288,4 +306,32 @@ public class NewMensajeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+        ActionBar ab = getSupportActionBar();
+        if (ab == null) {
+            return;
+        }
+        if (scrollState == ScrollState.UP) {
+            if (ab.isShowing()) {
+                ab.hide();
+                //fab.hide();
+            }
+        } else if (scrollState == ScrollState.DOWN) {
+            if (!ab.isShowing()) {
+                ab.show();
+                //fab.show();
+            }
+        }
+    }
 }

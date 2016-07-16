@@ -1,34 +1,29 @@
 package com.ulima.sw.Asesorias.Informacion;
 
 import android.app.Dialog;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.hardware.SensorManager;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.github.tbouron.shakedetector.library.ShakeDetector;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.melnykov.fab.FloatingActionButton;
 
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.asebeans.Curso;
 import com.ulima.sw.Asesorias.asebeans.Mensaje;
@@ -50,8 +46,8 @@ import xyz.hanks.library.SmallBangListener;
 
 
 public class InformActivity extends AppCompatActivity implements InformView{
-    private ImageView imgE;
 
+    private ImageView imgE;
     private TextView txtEstado,txtLugar,txtHora,txtCal;
     private ProgressDialog dialog;
     private Curso curso;
@@ -67,12 +63,16 @@ public class InformActivity extends AppCompatActivity implements InformView{
     private TextView mText;
     private ImageView imageView;
     private int precantAlm;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_informacion);
 
-
+        // Set a Toolbar to replace the ActionBar.
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         ses = new Sesion(this);
         ses.checkLogin();
@@ -86,13 +86,17 @@ public class InformActivity extends AppCompatActivity implements InformView{
 
         precantAlm = 0;
 
-        setContentView(R.layout.activity_informacion);
-
-
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+
         mSmallBang = SmallBang.attach2Window(this);
+
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setNavigationBarTintEnabled(true);
+        tintManager.setTintColor(Color.parseColor("#273e57"));
 
 
 
@@ -106,6 +110,8 @@ public class InformActivity extends AppCompatActivity implements InformView{
         obtenerCurso(id);
 
     }
+
+
 
     public void onFav(View view){
         ;
@@ -426,7 +432,7 @@ public class InformActivity extends AppCompatActivity implements InformView{
                         .setContentText(contenido)
                         .setAutoCancel(true)
                         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                        .setColor(getResources().getColor(R.color.colorAccent));
+                        .setColor(getResources().getColor(R.color.accent));
 
 
         NotificationManager notifyMgr = (NotificationManager)

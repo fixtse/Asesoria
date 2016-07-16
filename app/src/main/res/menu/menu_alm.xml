@@ -4,15 +4,26 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/mcursos"
+            android:icon="@drawable/ic_one"
             android:title="Cursos"/>
-        <item
+        <!--item
             android:id="@+id/mbusqueda"
-            android:title="Busqueda"/>
+            android:title="Busqueda"/-->
         <item
             android:id="@+id/mmensajes"
+            android:icon="@drawable/ic_two"
             android:title="Mensajes"/>
+    </group>
+
+
+        <item android:title="Sesión">
+            <menu>
+                <group android:checkableBehavior="single">
         <item
+            android:icon="@drawable/ic_close"
             android:id="@+id/CSesion"
             android:title="Cerrar Sesión"/>
-    </group>
+                </group>
+            </menu>
+        </item>
 </menu>

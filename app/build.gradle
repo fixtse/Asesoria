@@ -34,6 +34,15 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.tbouron.shakedetector:library:1.0.0@aar'
     compile 'hanks.xyz:smallbang-library:0.1.2'
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
+
+
+
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.melnykov:floatingactionbutton:1.0.7'
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'
@@ -42,3 +51,4 @@ buildscript {
     ext.support_version = '23.4.0'
     ext.firebase_version = '9.0.2'
 }
+
