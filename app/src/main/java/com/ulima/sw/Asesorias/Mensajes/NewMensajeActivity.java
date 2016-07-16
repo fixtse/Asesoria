@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
@@ -30,6 +32,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.nineoldandroids.animation.ValueAnimator;
+import com.nineoldandroids.view.ViewHelper;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.ulima.sw.Asesorias.R;
 import com.ulima.sw.Asesorias.adapter.MensajeAdapter;
@@ -107,8 +111,9 @@ public class NewMensajeActivity extends AppCompatActivity implements ObservableS
             public void OnShake() {
 
 
-                sender = 1;
+
                 if (vibref != null){
+                    sender = 1;
                     vibref.setValue(1);
 
                 }
@@ -122,9 +127,6 @@ public class NewMensajeActivity extends AppCompatActivity implements ObservableS
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
         tintManager.setTintColor(Color.parseColor("#273e57"));
-
-
-
 
     }
 
@@ -162,12 +164,11 @@ public class NewMensajeActivity extends AppCompatActivity implements ObservableS
                     vibref = database.getReference().child("mensajes").child(ds.getKey()).child("vib");
                     mostrarContenido(mensaje);
                     if(mensaje.getVib()==1){
-                       // if(sender ==0){
+                        if(sender ==0){
                             v.vibrate(500);
                             vibref.setValue(0);
-                       // }
-                       // sender = 1;
-
+                        }
+                        sender = 0;
                     }
                     //notification1(2, R.drawable.mensj, "Nuevo Mensaje", mensaje.getContenidos().get(mensaje.getContenidos().size()-1)));
 
@@ -318,20 +319,56 @@ public class NewMensajeActivity extends AppCompatActivity implements ObservableS
 
     @Override
     public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-        ActionBar ab = getSupportActionBar();
-        if (ab == null) {
-            return;
-        }
+
         if (scrollState == ScrollState.UP) {
-            if (ab.isShowing()) {
-                ab.hide();
-                //fab.hide();
+            if (toolbarIsShown()) {
+                hideToolbar();
             }
         } else if (scrollState == ScrollState.DOWN) {
-            if (!ab.isShowing()) {
-                ab.show();
-                //fab.show();
+            if (toolbarIsHidden()) {
+                showToolbar();
             }
         }
+    }
+
+    protected int getScreenHeight() {
+        return findViewById(android.R.id.content).getHeight();
+    }
+
+    private boolean toolbarIsShown() {
+        return ViewHelper.getTranslationY(toolbar) == 0;
+    }
+
+    private boolean toolbarIsHidden() {
+        return ViewHelper.getTranslationY(toolbar) == -toolbar.getHeight();
+    }
+
+
+    private void showToolbar() {
+        moveToolbar(0);
+    }
+
+    private void hideToolbar() {
+        moveToolbar(-toolbar.getHeight());
+    }
+
+    private void moveToolbar(float toTranslationY) {
+        if (ViewHelper.getTranslationY(toolbar) == toTranslationY) {
+            return;
+        }
+        ValueAnimator animator = ValueAnimator.ofFloat(ViewHelper.getTranslationY(toolbar), toTranslationY).setDuration(200);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float translationY = (float) animation.getAnimatedValue();
+                ViewHelper.setTranslationY(toolbar, translationY);
+                //Ajusta Tamaño de layout cuando se oculte el ActionBar
+                //ViewHelper.setTranslationY((View) lcontenidos, translationY);
+                //LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) ((View) lcontenidos).getLayoutParams();
+                //lp.height = (int) -translationY + getScreenHeight() - lp.topMargin;
+                //((View) lcontenidos).requestLayout();
+            }
+        });
+        animator.start();
     }
 }
