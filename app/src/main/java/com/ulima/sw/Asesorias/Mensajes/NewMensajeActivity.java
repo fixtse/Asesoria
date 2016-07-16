@@ -106,7 +106,7 @@ public class NewMensajeActivity extends AppCompatActivity implements ObservableS
             @Override
             public void OnShake() {
 
-                Toast.makeText(getApplicationContext(), "Zumbidos are back", Toast.LENGTH_SHORT).show();
+
                 sender = 1;
                 if (vibref != null){
                     vibref.setValue(1);

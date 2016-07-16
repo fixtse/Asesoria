@@ -149,9 +149,12 @@ public class mainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (menuItem.getItemId()!=R.id.CSesion){
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.flaContenido,fragment).commit();
 
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.flaContenido,fragment).commit();
+        }
+
 
         menuItem.setChecked(true);
         // Set action bar title
