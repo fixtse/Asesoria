@@ -178,7 +178,7 @@ public class NewMensajeActivity extends AppCompatActivity implements ObservableS
             }
         });
 
-        ShakeDetector.updateConfiguration(3.24f,2);
+        ShakeDetector.updateConfiguration(3.0f,3);
 
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);

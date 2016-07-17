@@ -135,9 +135,14 @@ public class fragMensajes extends Fragment implements MensajesView {
                 }
                 if (Mensajes != null && Mensajes.size() > 0) {
                     mostrarMensajes(Mensajes);
-                    getView().findViewById(R.id.noMen).setVisibility(View.GONE);
+                    if (getView() != null){
+                        getView().findViewById(R.id.noMen).setVisibility(View.GONE);
+                    }
+
                 }else{
-                    getView().findViewById(R.id.noMen).setVisibility(View.VISIBLE);
+                    if (getView() != null){
+                        getView().findViewById(R.id.noMen).setVisibility(View.VISIBLE);
+                    }
                     if (Mensajes.size() == 0){
                         mostrarMensajes(Mensajes);
                     }else {

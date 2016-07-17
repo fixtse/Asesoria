@@ -215,10 +215,14 @@ public class fragCursos extends Fragment implements cursosView{
     public void mostrarCursos(List<Curso> cursos) {
 
         //Tcursos = cursos;
-        listAdapter = new ListadoExpansibleCursosAdapter(getContext(), cursos);
+        if (getContext() != null){
+            listAdapter = new ListadoExpansibleCursosAdapter(getContext(), cursos);
 
-        // setting list adapter
-        expListView.setAdapter(listAdapter);
+            // setting list adapter
+            expListView.setAdapter(listAdapter);
+
+        }
+
 
 
         dialog.dismiss();
