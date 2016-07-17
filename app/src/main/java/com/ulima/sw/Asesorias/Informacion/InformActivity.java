@@ -64,6 +64,7 @@ public class InformActivity extends AppCompatActivity implements InformView{
     private ImageView imageView;
     private int precantAlm;
     private Toolbar toolbar;
+    private int estadoA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,8 @@ public class InformActivity extends AppCompatActivity implements InformView{
         pos = intentPasado.getIntExtra("child",0);
         idmen = intentPasado.getIntExtra("siguiendo",0);
 
-        precantAlm = 0;
+        precantAlm = -1;
+        estadoA = -1;
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -190,8 +192,26 @@ public class InformActivity extends AppCompatActivity implements InformView{
     }
 
 
+    public void estadoA(View view, int est){
+        if (est == 0){
+            imgE.setImageResource(R.drawable.rojo);
+        }else if (est == 1){
+            imgE.setImageResource(R.drawable.verde);
+        }else{
+            imgE.setImageResource(R.drawable.amarillo);
+        }
+        mSmallBang.bang(view, 50, new SmallBangListener() {
+            @Override
+            public void onAnimationStart() {
 
+            }
 
+            @Override
+            public void onAnimationEnd() {
+
+            }
+        });
+    }
 
     public void mostrarAsesoria() {
 
@@ -202,13 +222,22 @@ public class InformActivity extends AppCompatActivity implements InformView{
         txtCal = (TextView)findViewById(R.id.tCal);
         switch (curso.getAsesorias().get(pos).getEstado().getId()){
             case 0:
-                imgE.setImageResource(R.drawable.rojo);
+                if (estadoA != 0){
+                     estadoA(imgE,0);
+                }
+                estadoA=0;
                 break;
             case 1:
-                imgE.setImageResource(R.drawable.verde);
+                if (estadoA != 1){
+                    estadoA(imgE,1);
+                }
+                estadoA=1;
                 break;
             case 2:
-                imgE.setImageResource(R.drawable.amarillo);
+                if (estadoA != 2){
+                    estadoA(imgE,2);
+                }
+                estadoA=2;
                 break;
         }
 
@@ -238,6 +267,10 @@ public class InformActivity extends AppCompatActivity implements InformView{
 
         }else{
             mText.setText("0");
+            if (precantAlm != 0){
+                redText(findViewById(R.id.CantAlm));
+                precantAlm=0;
+            }
         }
         txtEstado.setText(curso.getAsesorias().get(pos).getEstado().getEstado());
         txtLugar.setText("Salón: "+curso.getAsesorias().get(pos).getLugar());

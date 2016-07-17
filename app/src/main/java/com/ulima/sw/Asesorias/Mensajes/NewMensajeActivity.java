@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -113,8 +114,62 @@ public class NewMensajeActivity extends AppCompatActivity implements ObservableS
 
 
                 if (vibref != null){
+                    HashMap<String, String> user = ses.getUserDetails();
+                    // name
+                    final String name = user.get(ses.KEY_NAME);
                     sender = 1;
                     vibref.setValue(1);
+                    final DatabaseReference mensajesref = database.getReference().child("mensajes");
+                    mensajesref.orderByChild("id").equalTo(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (final DataSnapshot ds : dataSnapshot.getChildren())
+                            {
+                                final DatabaseReference contenidoref = database.getReference().child("mensajes").child(ds.getKey()).child("contenidos");
+                                contenidoref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                        //Mensaje me = dataSnapshot.getValue(Mensaje.class);
+                                        List<String> conte = new ArrayList<String>();
+                                        for (DataSnapshot ds : dataSnapshot.getChildren())
+                                        {
+                                            String me = ds.getValue(String.class);
+                                            conte.add(me);
+
+
+                                        }
+
+                                        String contenido = "((&#9499;&#3232;_&#3232;)&#9499;&#24417;&#9531;&#9473;&#9531; <i><b>"+name.toLowerCase()+" ha enviado un zumbido</b></i>";
+
+                                        conte.add(contenido);
+
+                                        contenidoref.setValue(conte);
+                                        //contenidoref.updateChildren()
+
+                                        //lcontenidos.smoothScrollToPosition(adapter.getCount() -1);
+                                        scrollMyListViewToBottom();
+
+
+
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
 
                 }
 
@@ -230,16 +285,19 @@ public class NewMensajeActivity extends AppCompatActivity implements ObservableS
 
 
                             }
+                            if(Econtenido.getText() != null && Econtenido.getText().toString().trim().length()>0){
+                                String contenido = "<b>"+name.toUpperCase()+":</b> "+Econtenido.getText();
 
-                            String contenido = "<b>"+name.toUpperCase()+":</b> "+Econtenido.getText();
+                                conte.add(contenido);
 
-                            conte.add(contenido);
+                                contenidoref.setValue(conte);
+                                //contenidoref.updateChildren()
+                                Econtenido.setText("");
+                                //lcontenidos.smoothScrollToPosition(adapter.getCount() -1);
+                                scrollMyListViewToBottom();
 
-                            contenidoref.setValue(conte);
-                            //contenidoref.updateChildren()
-                            Econtenido.setText("");
-                            //lcontenidos.smoothScrollToPosition(adapter.getCount() -1);
-                            scrollMyListViewToBottom();
+                            }
+
 
                         }
 
@@ -303,6 +361,12 @@ public class NewMensajeActivity extends AppCompatActivity implements ObservableS
                 }
 
                 return true;
+            case R.id.men_op1:
+
+                break;
+
+
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -371,4 +435,18 @@ public class NewMensajeActivity extends AppCompatActivity implements ObservableS
         });
         animator.start();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+                getMenuInflater().inflate(R.menu.menu_main, menu);
+
+
+
+        return true;
+    }
+
+
+
 }

@@ -59,7 +59,12 @@ public class MensajeAdapter extends BaseAdapter {
         }
         TextView nameTxt= (TextView) convertView.findViewById(R.id.txtCont);
         final String s= (String) this.getItem(position);
-        nameTxt.setText(Html.fromHtml(s));
+        if (s !=null){
+            nameTxt.setText(Html.fromHtml(s));
+        }else{
+            nameTxt.setText(Html.fromHtml("<b> mensaje eliminado</b>"));
+        }
+
 
         return convertView;
     }
