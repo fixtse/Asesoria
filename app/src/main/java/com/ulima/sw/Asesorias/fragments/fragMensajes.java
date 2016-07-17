@@ -52,11 +52,6 @@ public class fragMensajes extends Fragment implements MensajesView {
     private FirebaseDatabase database;
     private String tipo;
 
-    /**
-     * A simple {@link Fragment} subclass.
-     */
-
-
 
     public fragMensajes() {
         // Required empty public constructor
@@ -138,8 +133,17 @@ public class fragMensajes extends Fragment implements MensajesView {
                     Mensaje men = ds.getValue(Mensaje.class);
                     Mensajes.add(men);
                 }
-                if (Mensajes != null) {
+                if (Mensajes != null && Mensajes.size() > 0) {
                     mostrarMensajes(Mensajes);
+                    getView().findViewById(R.id.noMen).setVisibility(View.GONE);
+                }else{
+                    getView().findViewById(R.id.noMen).setVisibility(View.VISIBLE);
+                    if (Mensajes.size() == 0){
+                        mostrarMensajes(Mensajes);
+                    }else {
+                        dialog.dismiss();
+                    }
+
 
                 }
 
@@ -201,6 +205,7 @@ public class fragMensajes extends Fragment implements MensajesView {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                     Intent intent = new Intent(getActivity(),NewMensajeActivity.class);
+
                     intent.putExtra("id",Mensajes.get(i).getId());
                     //intent.putExtra("curso",Mensajes.get(i).getCurso());
 

@@ -24,6 +24,18 @@
         android:layout_marginBottom="5dp"
         android:divider="@drawable/dividerlst"
         android:dividerHeight="1dp"
-        ></ListView></RelativeLayout>
+        ></ListView>
+
+
+        <TextView android:id="@+id/noMen"
+            style="?android:textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="32dp"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:text="No hay mensajes"
+            android:textColor="?android:textColorSecondary" /></RelativeLayout>
 
 </FrameLayout>

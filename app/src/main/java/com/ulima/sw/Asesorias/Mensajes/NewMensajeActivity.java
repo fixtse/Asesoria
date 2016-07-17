@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -221,6 +223,8 @@ public class NewMensajeActivity extends AppCompatActivity implements ObservableS
                     if(mensaje.getVib()==1){
                         if(sender ==0){
                             v.vibrate(500);
+                            Animation shake = AnimationUtils.loadAnimation(NewMensajeActivity.this, R.anim.shake);
+                            findViewById(R.id.linearshake).startAnimation(shake);
                             vibref.setValue(0);
                         }
                         sender = 0;
@@ -440,7 +444,7 @@ public class NewMensajeActivity extends AppCompatActivity implements ObservableS
     public boolean onCreateOptionsMenu(Menu menu) {
 
 
-                getMenuInflater().inflate(R.menu.menu_main, menu);
+      //getMenuInflater().inflate(R.menu.menu_main, menu);
 
 
 

@@ -1,35 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="80dp"
+    android:layout_gravity="center" android:id="@+id/swipe"
+    >
+    <!-- Bottom View Start-->
+    <LinearLayout
+        android:background="#ff0000"
+        android:id="@+id/bottom_wrapper"
+        android:orientation="vertical"
+        android:layout_width="90dp"
+        android:weightSum="1"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:id="@+id/imgDelete"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_rm"/>
+        <!--What you want to show-->
+    </LinearLayout>
+    <!-- Bottom View End-->
 
-    android:orientation="vertical"
-    android:layout_gravity="center"
-    android:paddingLeft="15dp"
-    android:paddingTop="15dp"
-    android:paddingBottom="15dp"
-    android:background="#FFFFFF"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView
-        android:id="@+id/txtCurso"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Profesor: "
-        android:textColor="#000000"
-        android:ellipsize="end"
-        android:singleLine="true"/>
+    <!-- Surface View Start -->
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:orientation="vertical"
+
+        android:background="#FFFFFF"
+        >
+        <TextView
+            android:id="@+id/txtCurso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profesor: "
+            android:textColor="#000000"
+            android:ellipsize="end"
+            android:singleLine="true"/>
 
 
 
-    <TextView
-        android:id="@+id/txtCont"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mensaje: "
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:textColor="#000000"
-        />
+        <TextView
+            android:id="@+id/txtCont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mensaje: "
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="#000000"
+            />
 
 
 
-</LinearLayout>
+    </LinearLayout>
+    <!-- Surface View End -->
+</com.daimajia.swipe.SwipeLayout>
