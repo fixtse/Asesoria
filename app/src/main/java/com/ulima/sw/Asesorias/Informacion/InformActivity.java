@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.NotificationCompat;
@@ -29,7 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.melnykov.fab.FloatingActionButton;
+//import com.melnykov.fab.FloatingActionButton;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.ulima.sw.Asesorias.R;
@@ -41,8 +42,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import xyz.hanks.library.SmallBang;
-import xyz.hanks.library.SmallBangListener;
+
 
 
 public class InformActivity extends AppCompatActivity implements InformView{
@@ -58,7 +58,7 @@ public class InformActivity extends AppCompatActivity implements InformView{
     private FirebaseDatabase database;
     private DatabaseReference CursosRef;
     private Menu menu;
-    private SmallBang mSmallBang;
+
     private int idmen;
     private TextView mText;
     private ImageView imageView;
@@ -93,7 +93,6 @@ public class InformActivity extends AppCompatActivity implements InformView{
 
 
 
-        mSmallBang = SmallBang.attach2Window(this);
 
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
@@ -116,7 +115,7 @@ public class InformActivity extends AppCompatActivity implements InformView{
 
 
     public void onFav(View view){
-        ;
+
         displayInputDialog(curso.getAsesorias().get(pos).getEstado().getId());
 
     }
@@ -200,17 +199,7 @@ public class InformActivity extends AppCompatActivity implements InformView{
         }else{
             imgE.setImageResource(R.drawable.amarillo);
         }
-        mSmallBang.bang(view, 50, new SmallBangListener() {
-            @Override
-            public void onAnimationStart() {
 
-            }
-
-            @Override
-            public void onAnimationEnd() {
-
-            }
-        });
     }
 
     public void mostrarAsesoria() {
@@ -285,16 +274,7 @@ public class InformActivity extends AppCompatActivity implements InformView{
     public void redText(View view){
         mText.setTextColor(0xff00ffff);
 
-        mSmallBang.bang(view,50,new SmallBangListener() {
-            @Override
-            public void onAnimationStart() {
-            }
 
-            @Override
-            public void onAnimationEnd() {
-
-            }
-        });
     }
 
     @Override
@@ -432,17 +412,7 @@ public class InformActivity extends AppCompatActivity implements InformView{
 
     public void like(View view){
         imageView.setImageResource(R.drawable.heart_on);
-        mSmallBang.bang(view, 50, new SmallBangListener() {
-            @Override
-            public void onAnimationStart() {
 
-            }
-
-            @Override
-            public void onAnimationEnd() {
-
-            }
-        });
     }
 
 
